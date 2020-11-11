@@ -4,7 +4,12 @@ initDb(config.firebase_creds)
 
 const express = require('express')
 const app = express()
+const bodyParser = require('body-parser')
 const router = require('./routes/router')
+
+// Takes the raw requests and turns them into usable properties on req.body
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use('/', router)
 
