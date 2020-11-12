@@ -4,6 +4,12 @@ const database = require('../config/database')
 const db = database.getDb()
 const docRef = db.collection('cards')
 
+/**
+
+snapshot.doc.data() - accesses the document object
+
+**/
+
 exports.createCard = async function (req, res, next) {
   // const docName = req.body.cardName // name of the document that will be put in collection
   // const cardAttributes = Object.entries(req.body).filter((el) => el[0] !== 'cardName')
@@ -21,6 +27,20 @@ exports.createCard = async function (req, res, next) {
 
 exports.readCards = async function (req, res, next) {
   const snapshot = await docRef.get()
-  const data = snapshot.docs.map((doc) => doc.data())
+  const data = snapshot.docs.map((doc) => {
+    const id = doc.id
+    const data = doc.data()
+    return { id, ...data }
+  })
+
   res.status(200).json(data)
+}
+
+exports.updateCard = async function (req, res, next) {
+  const id = req.body.id
+  const doc = docRef.doc(id)
+  const updates = Object.entries(req.body).filter((el) => el[0] !== 'id')
+  const updatesObject = Object.fromEntries(updates)
+  await doc.update({ ...updatesObject })
+  res.status(200).send(`Doc id: ${id} updated`)
 }
