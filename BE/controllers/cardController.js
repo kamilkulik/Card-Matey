@@ -44,3 +44,10 @@ exports.updateCard = async function (req, res, next) {
   await doc.update({ ...updatesObject })
   res.status(200).send(`Doc id: ${id} updated`)
 }
+
+exports.deleteCard = async function (req, res, next) {
+  const id = req.body.id
+  const doc = docRef.doc(id)
+  await doc.delete()
+  res.status(200).send(`Doc id: ${id} got deleted`)
+}

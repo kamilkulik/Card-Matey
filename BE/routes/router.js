@@ -9,4 +9,6 @@ router.get('/cards/all', catchErrors(businessCard.readCards))
 
 router.patch('/card/update', catchErrors(businessCard.updateCard))
 
+router.delete('/card/delete', catchErrors(businessCard.deleteCard))
+
 module.exports = router
