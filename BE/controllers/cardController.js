@@ -36,18 +36,27 @@ exports.readCards = async function (req, res, next) {
   res.status(200).json(data)
 }
 
-exports.updateCard = async function (req, res, next) {
+getId = (req) => {
   const id = req.body.id
   const doc = docRef.doc(id)
+  return {
+    id,
+    doc,
+  }
+}
+
+exports.updateCard = async function (req, res, next) {
+  const { id, doc } = getId(req)
   const updates = Object.entries(req.body).filter((el) => el[0] !== 'id')
   const updatesObject = Object.fromEntries(updates)
   await doc.update({ ...updatesObject })
   res.status(200).send(`Doc id: ${id} updated`)
 }
 
+// add ability to delete a field on the document
+
 exports.deleteCard = async function (req, res, next) {
-  const id = req.body.id
-  const doc = docRef.doc(id)
+  const { id, doc } = getId(req)
   await doc.delete()
   res.status(200).send(`Doc id: ${id} got deleted`)
 }
