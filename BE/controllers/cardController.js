@@ -47,13 +47,17 @@ getId = (req) => {
 
 exports.updateCard = async function (req, res, next) {
   const { id, doc } = getId(req)
-  const updates = Object.entries(req.body).filter((el) => el[0] !== 'id')
-  const updatesObject = Object.fromEntries(updates)
+  const updates = Object.entries(req.body).filter((el) => el[0] !== 'id') // remove id field from updates
+  const mappedForDeletion = updates.map((field) => {
+    // every field with empty string gets a deletion method
+    return field[1] === '' ? [field[0], firestore.FieldValue.delete()] : field
+  })
+  const updatesObject = Object.fromEntries(mappedForDeletion) // back to an object
   await doc.update({ ...updatesObject })
   res.status(200).send(`Doc id: ${id} updated`)
 }
 
-// add ability to delete a field on the document
+// add ability to delete a field on the document or just use update endpoint to update all fields on the document
 
 exports.deleteCard = async function (req, res, next) {
   const { id, doc } = getId(req)
