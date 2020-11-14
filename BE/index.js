@@ -11,6 +11,20 @@ const router = require('./routes/router')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
+// CORS HANDLING
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*') // * allows all origins to send request
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-requested-With, Content-Type, Accept, Authorization'
+  ) // kinds of headers allowed
+  if (req.method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE') // setting allowed http methods
+    return res.status(200).json({}) // empty success response just for the browser
+  }
+  next()
+})
+
 app.use('/', router)
 
 app.listen(config.port, () => {
