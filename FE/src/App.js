@@ -2,7 +2,7 @@ import React from 'react'
 import useGetCards from './hooks/getCards'
 
 function App() {
-  const { status, data, error } = useGetCards()
+  const { status, data, error } = useGetCards('218L3QFZARcHnQy9Y9q5')
   return (
     <React.Fragment>
       {status === 'fetched' && (

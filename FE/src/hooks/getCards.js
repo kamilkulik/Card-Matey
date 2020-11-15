@@ -22,7 +22,7 @@ const useGetCard = (card) => {
   useEffect(() => {
     dispatch({ type: 'FETCHING' })
     axios
-      .get('http://localhost:3700/card/')
+      .get(`http://localhost:3700/card${card ? '/' + card : null}`)
       .then((res) => {
         console.log(res)
         dispatch({ type: 'FETCHED', payload: res.data })

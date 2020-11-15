@@ -36,6 +36,13 @@ exports.readCards = async function (req, res, next) {
   res.status(200).json(data)
 }
 
+exports.readCard = async function (req, res, next) {
+  const snapshot = await docRef.doc(req.params.cardId).get()
+  const data = snapshot.data()
+
+  res.status(200).json(data)
+}
+
 getId = (req) => {
   const id = req.body.id
   const doc = docRef.doc(id)

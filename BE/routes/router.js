@@ -5,7 +5,9 @@ const businessCard = require('../controllers/cardController')
 
 router.post('/card/add', catchErrors(businessCard.createCard))
 
-router.get('/card', catchErrors(businessCard.readCards))
+router.get('/cards', catchErrors(businessCard.readCards))
+
+router.get('/card/:cardId', catchErrors(businessCard.readCard))
 
 router.patch('/card/update', catchErrors(businessCard.updateCard))
 
