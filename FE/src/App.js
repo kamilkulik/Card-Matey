@@ -1,14 +1,21 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import useGetCards from './hooks/getCards'
+import AppRouter from './router/AppRouter'
+import AppContext from './AppContext'
 
 function App() {
-  const { status, data, error } = useGetCards('218L3QFZARcHnQy9Y9q5')
+  const { status, data } = useGetCards()
+  const [cardData, setCardData] = useState('')
+  useEffect(() => {
+    if (status === 'fetched') setCardData(data)
+  }, [status, data])
   return (
-    <React.Fragment>
+    <AppContext.Provider value={{ cardData }}>
       {status === 'fetched' && (
         <div className='app-wrapper'>Hello! There are: {data.length} business cards stored</div>
       )}
-    </React.Fragment>
+      <AppRouter />
+    </AppContext.Provider>
   )
 }
 
