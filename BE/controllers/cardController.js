@@ -44,7 +44,7 @@ exports.readCard = async function (req, res, next) {
 }
 
 getId = (req) => {
-  const id = req.body.id
+  const id = req.params.cardId
   const doc = docRef.doc(id)
   return {
     id,

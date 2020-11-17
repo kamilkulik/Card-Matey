@@ -22,7 +22,7 @@ const useGetCard = (card) => {
   useEffect(() => {
     dispatch({ type: 'FETCHING' })
     axios
-      .get(`http://localhost:3700/card${card ? '/' + card : 's'}`)
+      .get(`http://localhost:3700/cards${card ? '/' + card : ''}`)
       .then((res) => {
         dispatch({ type: 'FETCHED', payload: res.data })
       })
