@@ -5,7 +5,7 @@ import CardGallery from '../components/cardGallery/CardGallery'
 const AppRouter = () => {
   return (
     <BrowserRouter>
-      <Route path={'/gallery'} component={CardGallery} />
+      <Route path={'/'} component={CardGallery} />
     </BrowserRouter>
   )
 }

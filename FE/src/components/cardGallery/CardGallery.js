@@ -1,13 +1,17 @@
-import React, { useContext } from 'react'
-import AppContext from '../../AppContext'
+import React from 'react'
+import { useSelector } from 'react-redux'
 
 const CardGallery = () => {
-  const { cardData } = useContext(AppContext)
+  const cardData = useSelector((state) => state.cards)
   return (
     <ul>
-      {cardData &&
+      {cardData.length > 0 &&
         cardData.map((card, index) => {
-          return <li key={card.id}>Card #{index + 1}</li>
+          return (
+            <li key={card.id}>
+              Card #{index + 1} has id: {card.id}
+            </li>
+          )
         })}
     </ul>
   )

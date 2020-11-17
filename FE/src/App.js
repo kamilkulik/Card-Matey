@@ -1,21 +1,17 @@
-import React, { useState, useEffect } from 'react'
-import useGetCards from './hooks/getCards'
+import React, { Fragment } from 'react'
 import AppRouter from './router/AppRouter'
-import AppContext from './AppContext'
+import { useSelector } from 'react-redux'
 
 function App() {
-  const { status, data } = useGetCards()
-  const [cardData, setCardData] = useState('')
-  useEffect(() => {
-    if (status === 'fetched') setCardData(data)
-  }, [status, data])
+  const cards = useSelector((state) => state.cards)
+
   return (
-    <AppContext.Provider value={{ cardData }}>
-      {status === 'fetched' && (
-        <div className='app-wrapper'>Hello! There are: {data.length} business cards stored</div>
+    <React.Fragment>
+      {cards.length > 0 && (
+        <div className='app-wrapper'>Hello! There are: {cards.length} business cards stored</div>
       )}
       <AppRouter />
-    </AppContext.Provider>
+    </React.Fragment>
   )
 }
 

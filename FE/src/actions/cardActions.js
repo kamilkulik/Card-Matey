@@ -8,7 +8,7 @@ export function setCards(cards) {
 }
 
 export function startSetCards() {
-  return (setState, dispatch) => {
+  return (dispatch) => {
     let cards = []
     return axios
       .get(`http://localhost:3700/cards`)
