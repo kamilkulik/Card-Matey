@@ -1,12 +1,16 @@
 import React from 'react'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import CardGallery from '../components/cardGallery/CardGallery'
+import BusinessCard from '../components/businessCard/BusinessCard'
 
 const AppRouter = () => {
   return (
-    <BrowserRouter>
-      <Route path={'/'} component={CardGallery} />
-    </BrowserRouter>
+    <Router>
+      <Switch>
+        <Route exact path={'/'} component={CardGallery} />
+        <Route path={'/:id'} children={<BusinessCard />} />
+      </Switch>
+    </Router>
   )
 }
 
