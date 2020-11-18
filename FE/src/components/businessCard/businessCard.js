@@ -1,5 +1,6 @@
 import React, { useState, Fragment } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const BusinessCard = () => {
   const [formFields, setFormFields] = useState({
@@ -9,6 +10,9 @@ const BusinessCard = () => {
     email: '',
     website: '',
   })
+  const { id } = useParams()
+  const history = useHistory()
+  const savedData = useSelector((state) => state.cards.find((card) => card.id === id))
 
   const handleChange = (event) => {
     const name = event.target.name
@@ -20,10 +24,13 @@ const BusinessCard = () => {
     e.preventDefault()
   }
 
-  const { id } = useParams()
+  const goBack = () => {
+    history.goBack()
+  }
 
   return (
     <Fragment>
+      <button onClick={goBack}>&larr; Back</button>
       <h1>Card {id}</h1>
       <form onSubmit={handleSubmit}>
         <input
