@@ -17,12 +17,15 @@ exports.createCard = async function (req, res, next) {
 
   // allow setting empty documents
   const date = new Date()
-  await docRef.add({
+  const document = await docRef.add({
     // .add() method adds to collection a document whose name is a unique ID
     timestamp: firestore.Timestamp.fromDate(date),
     ...req.body,
   })
-  res.status(200).send(`Card successfully added to Database`)
+  const snapshot = await document.get()
+  const data = snapshot.data()
+  const id = snapshot.id
+  res.status(200).json({ ...data, id })
 }
 
 exports.readCards = async function (req, res, next) {
