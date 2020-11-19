@@ -8,6 +8,7 @@ const AddBusinessCard = ({ history }) => {
 
   const onSubmit = (formFields) => {
     dispatch(startAddCard(formFields))
+    window.alert('Card created! You will now be redirected to Card Gallery')
     history.push('/')
   }
 

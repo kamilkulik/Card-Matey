@@ -24,7 +24,7 @@ const CardForm = ({ card, onSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    onSubmit(formFields)
+    onSubmit(formFields, id)
   }
 
   const goBack = () => {
@@ -52,7 +52,7 @@ const CardForm = ({ card, onSubmit }) => {
             </label>
           )
         })}
-        <input type='submit' value='Submit' />
+        <input type='submit' value='Save Card' />
       </form>
     </Fragment>
   )

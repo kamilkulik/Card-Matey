@@ -64,7 +64,10 @@ exports.updateCard = async function (req, res, next) {
   })
   const updatesObject = Object.fromEntries(mappedForDeletion) // back to an object
   await doc.update({ ...updatesObject })
-  res.status(200).send(`Doc id: ${id} updated`)
+  res.status(200).json({
+    message: 'Card successfully updated',
+    id,
+  })
 }
 
 // add ability to delete a field on the document or just use update endpoint to update all fields on the document
@@ -72,5 +75,8 @@ exports.updateCard = async function (req, res, next) {
 exports.deleteCard = async function (req, res, next) {
   const { id, doc } = getId(req)
   await doc.delete()
-  res.status(200).send(`Doc id: ${id} got deleted`)
+  res.status(200).json({
+    message: 'Card successfully removed',
+    id,
+  })
 }
