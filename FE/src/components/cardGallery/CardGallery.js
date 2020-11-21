@@ -6,11 +6,11 @@ const CardGallery = () => {
   const cardData = useSelector((state) => state.cards)
 
   return (
-    <React.Fragment>
+    <div className='gallery'>
       <button>
         <Link to={'/add'}>Create a new Card</Link>
       </button>
-      <ul>
+      <ul className='gallery__layout'>
         {cardData.length > 0 &&
           cardData.map((card, index) => {
             return (
@@ -22,7 +22,7 @@ const CardGallery = () => {
             )
           })}
       </ul>
-    </React.Fragment>
+    </div>
   )
 }
 
