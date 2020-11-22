@@ -7,7 +7,7 @@ const CardGallery = () => {
 
   return (
     <div className='gallery'>
-      <button>
+      <button className='button'>
         <Link to={'/add'}>Create a new Card</Link>
       </button>
       <ul className='gallery__layout'>
