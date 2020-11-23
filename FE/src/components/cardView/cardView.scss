@@ -1,0 +1,27 @@
+.cardView {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 0.6fr 0.4fr;
+  padding: 3rem;
+
+  &__preview {
+    padding: 3rem;
+
+    &-container {
+      display: flex;
+
+      &::before {
+        content: '';
+        display: inline-block;
+        width: 1px;
+        height: 0;
+        padding-bottom: calc(100% / (1.8)); // aspect ratio for dimensions: 90 x 50 mm
+      }
+    }
+  }
+
+  &__form {
+    padding: 3rem;
+  }
+}

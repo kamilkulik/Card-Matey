@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import CardPresentation from '../businessCard/CardPresentation'
 
 const CardGallery = () => {
   const cardData = useSelector((state) => state.cards)
@@ -15,8 +16,9 @@ const CardGallery = () => {
           cardData.map((card, index) => {
             return (
               <li key={card.id}>
-                <Link to={`/${card.id}`}>
-                  Card #{index + 1} has id: {card.id}
+                <Link to={`/${card.id}`} className='gallery__link'>
+                  {/* Card #{index + 1} has id: {card.id} */}
+                  <CardPresentation card={card} />
                 </Link>
               </li>
             )

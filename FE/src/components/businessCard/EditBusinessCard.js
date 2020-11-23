@@ -1,5 +1,6 @@
 import React from 'react'
 import CardForm from './CardForm'
+import filterCardProps from '../../utilities/filterCardProps'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams, useHistory } from 'react-router-dom'
 import { startDeleteCard, startUpdateCard } from '../../actions/cardActions'
@@ -10,10 +11,7 @@ const EditBusinessCard = () => {
   const dispatch = useDispatch()
 
   const card = useSelector((state) => state.cards.find((card) => card.id === id))
-  const cleanData = Object.entries(card).filter(
-    (property) => !['id', 'timestamp'].includes(property[0])
-  )
-  const cleanDataObject = Object.fromEntries(cleanData)
+  const cleanDataObject = filterCardProps(card)
 
   const handleDelete = () => {
     if (window.confirm('Please confirm you want to delete this Card')) {
@@ -27,8 +25,14 @@ const EditBusinessCard = () => {
     history.push('/')
   }
 
+  const goBack = () => {
+    history.goBack()
+  }
+
   return (
     <React.Fragment>
+      <button onClick={goBack}>&larr; Back</button>
+
       <CardForm card={cleanDataObject} onSubmit={onSubmit} />
       <button onClick={handleDelete}>Delete Card</button>
     </React.Fragment>

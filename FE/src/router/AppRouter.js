@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import CardGallery from '../components/cardGallery/CardGallery'
 import AddBusinessCard from '../components/businessCard/AddBusinessCard'
-import EditBusinessCard from '../components/businessCard/EditBusinessCard'
+import CardView from '../components/cardView/CardView'
 
 const AppRouter = () => {
   return (
@@ -10,7 +10,7 @@ const AppRouter = () => {
       <Switch>
         <Route exact path={'/'} component={CardGallery} />
         <Route path={'/add'} component={AddBusinessCard} />
-        <Route path={'/:id'} children={<EditBusinessCard />} />
+        <Route path={'/:id'} children={<CardView />} />
       </Switch>
     </Router>
   )

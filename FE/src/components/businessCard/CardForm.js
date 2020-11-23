@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 const CardForm = ({ card, onSubmit }) => {
   const initialState = {
@@ -11,9 +11,9 @@ const CardForm = ({ card, onSubmit }) => {
     ...card,
   }
   const [formFields, setFormFields] = useState(initialState)
+  const [editable, setEditable] = useState(true)
 
   const { id } = useParams()
-  const history = useHistory()
 
   const handleChange = (event) => {
     const name = event.target.name
@@ -27,29 +27,27 @@ const CardForm = ({ card, onSubmit }) => {
     onSubmit(formFields, id)
   }
 
-  const goBack = () => {
-    history.goBack()
-  }
-
   const placeholders = ['First Name', 'Last Name', 'Mobile', 'Email', 'Website']
 
   return (
     <Fragment>
-      <button onClick={goBack}>&larr; Back</button>
-      <h1>Card {id}</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='cardForm'>
         {Object.entries(formFields).map((field, index) => {
           return (
-            <label key={field[0]}>
-              {placeholders[index]}
+            <div key={field[0]} className='cardForm-input'>
+              <label htmlFor={field[0]} className='cardForm-input__label'>
+                {placeholders[index]}
+              </label>
               <input
+                className='cardForm-input__input'
+                disabled={editable ? '' : 'disabled'}
                 type='text'
                 name={field[0]}
                 placeholder={placeholders[index]}
                 value={formFields[field[0]]}
                 onChange={handleChange}
               />
-            </label>
+            </div>
           )
         })}
         <input type='submit' value='Save Card' />

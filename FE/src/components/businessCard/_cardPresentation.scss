@@ -1,0 +1,22 @@
+.presentation {
+  background-color: indigo;
+  max-width: 100%;
+  min-height: 100%;
+  width: 100%;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-self: stretch;
+
+  &__data {
+    grid-column: 2 / 3;
+    justify-self: end;
+    align-self: end;
+    text-align: right;
+    font-size: 1.2rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+}

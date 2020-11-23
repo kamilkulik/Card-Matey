@@ -1,0 +1,17 @@
+.cardForm {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem 0;
+
+  &-input {
+    display: grid;
+    grid-template-columns: 0.3fr 0.4fr 0.4fr;
+    margin: 0.5rem 0;
+
+    &__label {
+    }
+
+    &__input {
+    }
+  }
+}
