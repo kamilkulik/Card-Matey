@@ -1,5 +1,7 @@
 import React, { useState, Fragment } from 'react'
 import { useParams } from 'react-router-dom'
+import { updateCard } from '../../actions/cardActions'
+import { useDispatch } from 'react-redux'
 
 const CardForm = ({ card, onSubmit }) => {
   const initialState = {
@@ -12,13 +14,16 @@ const CardForm = ({ card, onSubmit }) => {
   }
   const [formFields, setFormFields] = useState(initialState)
   const [editable, setEditable] = useState(true)
+  const dispatch = useDispatch()
 
   const { id } = useParams()
 
   const handleChange = (event) => {
     const name = event.target.name
     const value = event.target.value
-    setFormFields({ ...formFields, [name]: value })
+    const updates = { ...formFields, [name]: value }
+    setFormFields(updates)
+    dispatch(updateCard(id, updates))
   }
 
   const handleSubmit = (e) => {

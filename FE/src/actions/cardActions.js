@@ -53,6 +53,7 @@ export function startSetCards() {
 // UPDATE
 
 export function updateCard(id, updates) {
+  console.log(updates)
   return {
     type: 'UPDATE_CARD',
     id,

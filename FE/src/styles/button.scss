@@ -1,8 +1,8 @@
 button,
 input[type='submit'] {
   position: relative;
-  height: 50px;
-  width: 280px;
+  height: 5rem;
+  width: 20rem;
   border: 0;
   border-radius: 5px;
   text-transform: uppercase;
@@ -10,7 +10,7 @@ input[type='submit'] {
   letter-spacing: 0.2em;
   overflow: hidden;
   box-shadow: 0 4px 12px 0 rgba(152, 160, 180, 10);
-  background-image: linear-gradient(to right, purple, RebeccaPurple);
+  background-image: linear-gradient(to bottom right, purple, RebeccaPurple);
   color: white;
   margin-bottom: 1rem;
   transition: all 800ms cubic-bezier(0.19, 1, 0.22, 1);

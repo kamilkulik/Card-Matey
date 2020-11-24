@@ -14,13 +14,17 @@ const CardPresentation = ({ card }) => {
   const [formFields, setFormFields] = useState(initialState)
   const { id } = useParams()
   const reduxData = useSelector((state) => state.cards.find((card) => card.id === id))
-  const cardData = card || reduxData
+
+  let cardData
+  if (!id) cardData = card
+  else cardData = reduxData
+  // const cardData = card || reduxData
 
   const cleadDataObject = filterCardData(cardData)
 
   useEffect(() => {
     setFormFields({ ...initialState, ...cleadDataObject })
-  }, [])
+  }, [reduxData])
 
   return (
     <div className='presentation'>

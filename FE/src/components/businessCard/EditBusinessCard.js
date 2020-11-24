@@ -22,17 +22,11 @@ const EditBusinessCard = () => {
 
   const onSubmit = (updates, id) => {
     dispatch(startUpdateCard(updates, id))
-    history.push('/')
-  }
-
-  const goBack = () => {
-    history.goBack()
+    // history.push('/')
   }
 
   return (
     <React.Fragment>
-      <button onClick={goBack}>&larr; Back</button>
-
       <CardForm card={cleanDataObject} onSubmit={onSubmit} />
       <button onClick={handleDelete}>Delete Card</button>
     </React.Fragment>
