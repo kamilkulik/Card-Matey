@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import filterCardData from '../../utilities/filterCardProps'
 import { useParams } from 'react-router-dom'
+import { Textfit } from 'react-textfit'
 
 const CardPresentation = ({ card }) => {
   const initialState = {
@@ -29,15 +30,32 @@ const CardPresentation = ({ card }) => {
   return (
     <div className='presentation'>
       <div className='presentation__data'>
-        <p>
+        <p className='presentation__data-text'>
           {formFields.firstName} {formFields.lastName}
+          <br />
+          {formFields.mobile}
+          <br />
+          {formFields.email}
+          <br />
+          {formFields.website}
         </p>
-        <p>{formFields.mobile}</p>
-        <p>{formFields.email}</p>
-        <p>{formFields.website}</p>
       </div>
     </div>
   )
 }
 
 export default CardPresentation
+
+/*
+        <Textfit mode='multi' style={{ height: '100%', display: 'inline-block' }}>
+          <p className='presentation__data-text'>
+            {formFields.firstName} {formFields.lastName}
+            <br />
+            {formFields.mobile}
+            <br />
+            {formFields.email}
+            <br />
+            {formFields.website}
+          </p>
+        </Textfit>
+*/
