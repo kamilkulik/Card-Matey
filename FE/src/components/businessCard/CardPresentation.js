@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import filterCardData from '../../utilities/filterCardProps'
 import { useParams } from 'react-router-dom'
-import { Textfit } from 'react-textfit'
+import sizeMe from 'react-sizeme'
+import useDynamicFont from '../../hooks/useDynamicFont'
 
-const CardPresentation = ({ card }) => {
+const CardPresentation = ({ card, size: { width } }) => {
   const initialState = {
     firstName: 'John',
     lastName: 'Appleseed',
@@ -16,10 +17,11 @@ const CardPresentation = ({ card }) => {
   const { id } = useParams()
   const reduxData = useSelector((state) => state.cards.find((card) => card.id === id))
 
+  useDynamicFont(12, width)
+
   let cardData
   if (!id) cardData = card
   else cardData = reduxData
-  // const cardData = card || reduxData
 
   const cleadDataObject = filterCardData(cardData)
 
@@ -44,18 +46,4 @@ const CardPresentation = ({ card }) => {
   )
 }
 
-export default CardPresentation
-
-/*
-        <Textfit mode='multi' style={{ height: '100%', display: 'inline-block' }}>
-          <p className='presentation__data-text'>
-            {formFields.firstName} {formFields.lastName}
-            <br />
-            {formFields.mobile}
-            <br />
-            {formFields.email}
-            <br />
-            {formFields.website}
-          </p>
-        </Textfit>
-*/
+export default sizeMe()(CardPresentation)

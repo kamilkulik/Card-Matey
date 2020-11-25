@@ -5,11 +5,13 @@
   width: 100%;
   padding: 2rem;
   display: grid;
-  grid-template-columns: 60% 40%;
+  grid-template-columns: 50% 50%;
   align-self: stretch;
+  position: relative;
 
   &__data {
     grid-column: 2 / 3;
+    grid-row: 1 / 2;
     justify-self: end;
     align-self: end;
     text-align: right;
