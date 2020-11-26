@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
+import CardContainer from './CardContainer'
 import CardForm from './CardForm'
 import { startAddCard } from '../../actions/cardActions'
 
@@ -12,7 +13,11 @@ const AddBusinessCard = ({ history }) => {
     history.push('/')
   }
 
-  return <CardForm onSubmit={onSubmit} />
+  return (
+    <CardContainer>
+      <CardForm onSubmit={onSubmit} />
+    </CardContainer>
+  )
 }
 
 export default AddBusinessCard

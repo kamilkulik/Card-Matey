@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { startUpdateCard } from '../../actions/cardActions'
 
-const EditBusinessCard = () => {
+const EditBusinessCard = ({ toggleEdit }) => {
   const { id } = useParams()
 
   const dispatch = useDispatch()
@@ -21,7 +21,7 @@ const EditBusinessCard = () => {
 
   return (
     <CardContainer>
-      <CardForm card={cleanDataObject} onSubmit={onSubmit} />
+      <CardForm card={cleanDataObject} onSubmit={onSubmit} toggleEdit={toggleEdit} />
     </CardContainer>
   )
 }

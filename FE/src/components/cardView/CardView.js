@@ -34,7 +34,7 @@ const CardView = () => {
         <button onClick={goBack}>&larr; Back</button>
         <div className='cardView__preview-container'>
           {edit ? (
-            <EditBusinessCard />
+            <EditBusinessCard toggleEdit={handleEdit} />
           ) : (
             <CardContainer>
               <CardText />
@@ -44,6 +44,7 @@ const CardView = () => {
       </div>
       <div className='cardView__theme'>
         <button onClick={handleEdit}>Edit</button>
+        <br />
         <button onClick={handleDelete}>Delete Card</button>
       </div>
     </div>

@@ -1,9 +1,9 @@
-import React, { useState, Fragment, createRef } from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { updateCard } from '../../actions/cardActions'
 import { useDispatch } from 'react-redux'
 
-const CardForm = ({ card, onSubmit }) => {
+const CardForm = ({ card, onSubmit, toggleEdit }) => {
   const initialState = {
     firstName: '',
     lastName: '',
@@ -13,62 +13,58 @@ const CardForm = ({ card, onSubmit }) => {
     ...card,
   }
   const [formFields, setFormFields] = useState(initialState)
-  // const [editable, setEditable] = useState(true)
   const dispatch = useDispatch()
-  const cardInput = createRef()
 
   const { id } = useParams()
 
-  const handleChange = (event) => {
-    const name = event.target.name
-    const value = event.target.value
-    const updates = { ...formFields, [name]: value }
-    setFormFields(updates)
-    dispatch(updateCard(id, updates))
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-
-    onSubmit(formFields, id)
+  const handleSubmit = (updates) => {
+    onSubmit(updates, id)
   }
 
   const handleKeyPress = (e) => {
     if (e.keyCode === 13) {
       e.preventDefault()
-      cardInput.current.blur()
+      const dataAttribute = e.target.attributes.data.value
+      const node = document.querySelector(`#${dataAttribute}`)
+      node.blur()
     }
+  }
+
+  const handleBlur = (event) => {
+    const name = event.target.attributes.data.value
+    const value = event.target.innerText
+    const updates = { ...formFields, [name]: value }
+    setFormFields(updates)
+    dispatch(updateCard(id, updates))
+    handleSubmit(updates)
+    toggleEdit()
   }
 
   const placeholders = ['First Name', 'Last Name', 'Mobile', 'Email', 'Website']
 
   return (
-    <Fragment>
-      <form onSubmit={handleSubmit} className='cardForm'>
-        {Object.entries(formFields).map((field, index) => {
-          return (
-            <div key={field[0]} className='cardForm-input'>
-              {/*<label htmlFor={field[0]} className='cardForm-input__label'>
-                {placeholders[index]}
-          </label>*/}
-              <input
-                className='cardForm-input__input'
-                // disabled={editable ? '' : 'disabled'}
-                type='text'
-                name={field[0]}
-                placeholder={placeholders[index]}
-                ref={cardInput}
-                value={formFields[field[0]]}
-                onChange={handleChange}
-                onKeyDown={handleKeyPress}
-                onBlur={handleSubmit}
-              />
-            </div>
-          )
-        })}
-        {/*<input type='submit' value='Save Card' className='cardForm-submit' />*/}
-      </form>
-    </Fragment>
+    <div className='cardForm'>
+      {Object.entries(formFields).map((field, index) => {
+        return (
+          <div key={field[0]} className='cardForm-input'>
+            <span
+              contentEditable
+              role='textbox'
+              className='cardForm-input__input'
+              type='text'
+              id={field[0]}
+              data={field[0]}
+              placeholder={placeholders[index]}
+              value={formFields[field[0]]}
+              onKeyDown={handleKeyPress}
+              onBlur={handleBlur}>
+              {formFields[field[0]]}
+            </span>
+          </div>
+        )
+      })}
+      {/*<input type='submit' value='Save Card' className='cardForm-submit' />*/}
+    </div>
   )
 }
 

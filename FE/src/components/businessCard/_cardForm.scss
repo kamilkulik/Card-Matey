@@ -5,7 +5,11 @@
 
   & > div:nth-child(1),
   & > div:nth-child(2) {
-    display: inline-block;
+    display: inline;
+
+    & input {
+      // max-width: 50%;
+    }
   }
 
   &-input {
@@ -19,7 +23,7 @@
       // padding: 1rem;
       background-color: transparent;
       color: white;
-      border-style: dashed;
+      border: 1px dashed gray;
       text-align: right;
       font-size: var(--card-font-size);
     }
