@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react'
+import React, { useState, Fragment, createRef } from 'react'
 import { useParams } from 'react-router-dom'
 import { updateCard } from '../../actions/cardActions'
 import { useDispatch } from 'react-redux'
@@ -13,8 +13,9 @@ const CardForm = ({ card, onSubmit }) => {
     ...card,
   }
   const [formFields, setFormFields] = useState(initialState)
-  const [editable, setEditable] = useState(true)
+  // const [editable, setEditable] = useState(true)
   const dispatch = useDispatch()
+  const cardInput = createRef()
 
   const { id } = useParams()
 
@@ -32,6 +33,13 @@ const CardForm = ({ card, onSubmit }) => {
     onSubmit(formFields, id)
   }
 
+  const handleKeyPress = (e) => {
+    if (e.keyCode === 13) {
+      e.preventDefault()
+      cardInput.current.blur()
+    }
+  }
+
   const placeholders = ['First Name', 'Last Name', 'Mobile', 'Email', 'Website']
 
   return (
@@ -40,22 +48,25 @@ const CardForm = ({ card, onSubmit }) => {
         {Object.entries(formFields).map((field, index) => {
           return (
             <div key={field[0]} className='cardForm-input'>
-              <label htmlFor={field[0]} className='cardForm-input__label'>
+              {/*<label htmlFor={field[0]} className='cardForm-input__label'>
                 {placeholders[index]}
-              </label>
+          </label>*/}
               <input
                 className='cardForm-input__input'
-                disabled={editable ? '' : 'disabled'}
+                // disabled={editable ? '' : 'disabled'}
                 type='text'
                 name={field[0]}
                 placeholder={placeholders[index]}
+                ref={cardInput}
                 value={formFields[field[0]]}
                 onChange={handleChange}
+                onKeyDown={handleKeyPress}
+                onBlur={handleSubmit}
               />
             </div>
           )
         })}
-        <input type='submit' value='Save Card' />
+        {/*<input type='submit' value='Save Card' className='cardForm-submit' />*/}
       </form>
     </Fragment>
   )

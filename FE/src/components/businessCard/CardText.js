@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import filterCardData from '../../utilities/filterCardProps'
 import { useParams } from 'react-router-dom'
-import sizeMe from 'react-sizeme'
-import useDynamicFont from '../../hooks/useDynamicFont'
 
-const CardPresentation = ({ card, size: { width } }) => {
+const CardText = ({ card }) => {
   const initialState = {
     firstName: 'John',
     lastName: 'Appleseed',
@@ -16,8 +14,6 @@ const CardPresentation = ({ card, size: { width } }) => {
   const [formFields, setFormFields] = useState(initialState)
   const { id } = useParams()
   const reduxData = useSelector((state) => state.cards.find((card) => card.id === id))
-
-  useDynamicFont(12, width)
 
   let cardData
   if (!id) cardData = card
@@ -30,20 +26,16 @@ const CardPresentation = ({ card, size: { width } }) => {
   }, [reduxData])
 
   return (
-    <div className='presentation'>
-      <div className='presentation__data'>
-        <p className='presentation__data-text'>
-          {formFields.firstName} {formFields.lastName}
-          <br />
-          {formFields.mobile}
-          <br />
-          {formFields.email}
-          <br />
-          {formFields.website}
-        </p>
-      </div>
-    </div>
+    <p>
+      {formFields.firstName} {formFields.lastName}
+      <br />
+      {formFields.mobile}
+      <br />
+      {formFields.email}
+      <br />
+      {formFields.website}
+    </p>
   )
 }
 
-export default sizeMe()(CardPresentation)
+export default CardText

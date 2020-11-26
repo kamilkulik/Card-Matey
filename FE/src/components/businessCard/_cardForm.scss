@@ -1,20 +1,27 @@
 .cardForm {
-  display: flex;
-  flex-direction: column;
-  margin: 2rem 0;
+  & > div:nth-child(2) {
+    margin-left: 0.5rem;
+  }
+
+  & > div:nth-child(1),
+  & > div:nth-child(2) {
+    display: inline-block;
+  }
 
   &-input {
-    display: grid;
-    grid-template-columns: 0.2fr 0.4fr 0.4fr;
-    margin: 0.5rem 0;
-    align-items: center;
+    // margin: 0.5rem 0;
 
-    &__label {
-      font-size: 1.5rem;
-    }
+    // &__label {
+    //   font-size: 1.5rem;
+    // }
 
     &__input {
-      padding: 1rem;
+      // padding: 1rem;
+      background-color: transparent;
+      color: white;
+      border-style: dashed;
+      text-align: right;
+      font-size: var(--card-font-size);
     }
   }
 }
