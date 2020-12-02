@@ -37,7 +37,7 @@ const CardForm = ({ card, onSubmit, toggleEdit }) => {
     setFormFields(updates)
     dispatch(updateCard(id, updates))
     handleSubmit(updates)
-    toggleEdit()
+    // toggleEdit()
   }
 
   const placeholders = ['First Name', 'Last Name', 'Mobile', 'Email', 'Website']
