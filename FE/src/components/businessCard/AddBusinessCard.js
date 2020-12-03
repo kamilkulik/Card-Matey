@@ -5,19 +5,19 @@ import CardContainer from './CardContainer'
 import CardForm from './CardForm'
 import { startAddCard } from '../../actions/cardActions'
 
-const AddBusinessCard = ({ toggleEdit }) => {
+const AddBusinessCard = ({ toggleEdit, edit }) => {
   const dispatch = useDispatch()
   const history = useHistory()
 
   const onSubmit = (formFields) => {
     dispatch(startAddCard(formFields))
-    window.alert('Card created! You will now be redirected to Card Gallery')
-    history.push('/')
+    // window.alert('Card created! You will now be redirected to Card Gallery')
+    // history.push('/')
   }
 
   return (
     <CardContainer>
-      <CardForm onSubmit={onSubmit} toggleEdit={toggleEdit} />
+      <CardForm onSubmit={onSubmit} toggleEdit={toggleEdit} edit={edit} />
     </CardContainer>
   )
 }

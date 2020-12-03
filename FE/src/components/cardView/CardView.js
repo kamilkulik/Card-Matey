@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import CardContainer from '../businessCard/CardContainer'
-import CardText from '../businessCard/CardText'
 import { startDeleteCard } from '../../actions/cardActions'
 import { useDispatch } from 'react-redux'
 import EditBusinessCard from '../businessCard/EditBusinessCard'
@@ -23,8 +21,9 @@ const CardView = () => {
     history.goBack()
   }
 
-  const handleEdit = () => {
-    setEdit(!edit)
+  const handleEdit = (bool) => () => {
+    console.log(bool)
+    setEdit(bool)
   }
 
   const handleDelete = () => {
@@ -40,20 +39,16 @@ const CardView = () => {
         <button onClick={goBack}>&larr; Back</button>
         <div className='cardView__preview-container'>
           {newCardEditor ? (
-            <AddBusinessCard toggleEdit={handleEdit} />
-          ) : edit ? (
-            <EditBusinessCard toggleEdit={handleEdit} />
+            <AddBusinessCard toggleEdit={handleEdit} edit={edit} />
           ) : (
-            <CardContainer>
-              <CardText />
-            </CardContainer>
+            <EditBusinessCard toggleEdit={handleEdit} edit={edit} />
           )}
         </div>
       </div>
       <div className='cardView__theme'>
         {!newCardEditor && (
           <React.Fragment>
-            <button onClick={handleEdit}>Edit</button>
+            <button onClick={handleEdit(!edit)}>Edit</button>
             <br />
             <button onClick={handleDelete}>Delete Card</button>
           </React.Fragment>

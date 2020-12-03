@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { updateCard } from '../../actions/cardActions'
 import { useDispatch } from 'react-redux'
 
-const CardForm = ({ card, onSubmit, toggleEdit }) => {
+const CardForm = ({ card, onSubmit, toggleEdit, edit }) => {
   const initialState = {
     firstName: '',
     lastName: '',
@@ -21,7 +21,7 @@ const CardForm = ({ card, onSubmit, toggleEdit }) => {
   const handleClick = (e) => {
     if (!form.current.contains(e.target)) {
       onSubmit(formFields, id)
-      id && toggleEdit()
+      if (!!id) toggleEdit(false)()
     }
   }
 
@@ -29,7 +29,6 @@ const CardForm = ({ card, onSubmit, toggleEdit }) => {
     document.addEventListener('mousedown', handleClick)
 
     return () => {
-      console.log('cleanup')
       document.removeEventListener('mousedown', handleClick)
     }
   }, [])
@@ -49,10 +48,15 @@ const CardForm = ({ card, onSubmit, toggleEdit }) => {
     const updates = { ...formFields, [name]: value }
     setFormFields(updates)
     id && dispatch(updateCard(id, updates))
-    // toggleEdit()
   }
 
   const placeholders = ['First Name', 'Last Name', 'Mobile', 'Email', 'Website']
+
+  let style = useRef()
+  useEffect(() => {
+    if (edit) style.current = { border: '1px dashed gray' }
+    else style.current = { border: '1px solid transparent' }
+  }, [edit])
 
   return (
     <div className='cardForm' ref={form}>
@@ -60,15 +64,14 @@ const CardForm = ({ card, onSubmit, toggleEdit }) => {
         return (
           <div key={field[0]} className='cardForm-input'>
             <span
-              contentEditable
+              contentEditable={edit}
               suppressContentEditableWarning='true'
               role='textbox'
               className='cardForm-input__input'
+              style={style.current}
               type='text'
               id={field[0]}
               data={field[0]}
-              // placeholder={placeholders[index]}
-              // value={formFields[field[0]]}
               onKeyDown={handleKeyPress}
               onBlur={handleBlur}>
               {formFields[field[0]] || placeholders[index]}
@@ -76,7 +79,6 @@ const CardForm = ({ card, onSubmit, toggleEdit }) => {
           </div>
         )
       })}
-      {/*<input type='submit' value='Save Card' className='cardForm-submit' />*/}
     </div>
   )
 }
