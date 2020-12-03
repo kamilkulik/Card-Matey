@@ -5,11 +5,11 @@ import { useParams } from 'react-router-dom'
 
 const CardText = ({ card }) => {
   const initialState = {
-    firstName: 'John',
-    lastName: 'Appleseed',
-    mobile: '+1 123 456 789',
-    email: 'john.appleseed@example.com',
-    website: 'www.example.com',
+    firstName: '',
+    lastName: '',
+    mobile: '',
+    email: '',
+    website: '',
   }
   const [formFields, setFormFields] = useState(initialState)
   const { id } = useParams()

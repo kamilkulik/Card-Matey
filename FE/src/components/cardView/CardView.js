@@ -40,7 +40,7 @@ const CardView = () => {
         <button onClick={goBack}>&larr; Back</button>
         <div className='cardView__preview-container'>
           {newCardEditor ? (
-            <AddBusinessCard />
+            <AddBusinessCard toggleEdit={handleEdit} />
           ) : edit ? (
             <EditBusinessCard toggleEdit={handleEdit} />
           ) : (

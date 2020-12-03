@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import { updateCard } from '../../actions/cardActions'
 import { useDispatch } from 'react-redux'
@@ -14,12 +14,25 @@ const CardForm = ({ card, onSubmit, toggleEdit }) => {
   }
   const [formFields, setFormFields] = useState(initialState)
   const dispatch = useDispatch()
+  const form = useRef()
 
   const { id } = useParams()
 
-  const handleSubmit = (updates) => {
-    onSubmit(updates, id)
+  const handleClick = (e) => {
+    if (!form.current.contains(e.target)) {
+      onSubmit(formFields, id)
+      id && toggleEdit()
+    }
   }
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClick)
+
+    return () => {
+      console.log('cleanup')
+      document.removeEventListener('mousedown', handleClick)
+    }
+  }, [])
 
   const handleKeyPress = (e) => {
     if (e.keyCode === 13) {
@@ -35,30 +48,30 @@ const CardForm = ({ card, onSubmit, toggleEdit }) => {
     const value = event.target.innerText
     const updates = { ...formFields, [name]: value }
     setFormFields(updates)
-    dispatch(updateCard(id, updates))
-    handleSubmit(updates)
+    id && dispatch(updateCard(id, updates))
     // toggleEdit()
   }
 
   const placeholders = ['First Name', 'Last Name', 'Mobile', 'Email', 'Website']
 
   return (
-    <div className='cardForm'>
+    <div className='cardForm' ref={form}>
       {Object.entries(formFields).map((field, index) => {
         return (
           <div key={field[0]} className='cardForm-input'>
             <span
               contentEditable
+              suppressContentEditableWarning='true'
               role='textbox'
               className='cardForm-input__input'
               type='text'
               id={field[0]}
               data={field[0]}
-              placeholder={placeholders[index]}
-              value={formFields[field[0]]}
+              // placeholder={placeholders[index]}
+              // value={formFields[field[0]]}
               onKeyDown={handleKeyPress}
               onBlur={handleBlur}>
-              {formFields[field[0]]}
+              {formFields[field[0]] || placeholders[index]}
             </span>
           </div>
         )

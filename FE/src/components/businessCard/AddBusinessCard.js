@@ -5,7 +5,7 @@ import CardContainer from './CardContainer'
 import CardForm from './CardForm'
 import { startAddCard } from '../../actions/cardActions'
 
-const AddBusinessCard = () => {
+const AddBusinessCard = ({ toggleEdit }) => {
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -17,7 +17,7 @@ const AddBusinessCard = () => {
 
   return (
     <CardContainer>
-      <CardForm onSubmit={onSubmit} />
+      <CardForm onSubmit={onSubmit} toggleEdit={toggleEdit} />
     </CardContainer>
   )
 }
