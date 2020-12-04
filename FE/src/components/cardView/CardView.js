@@ -22,7 +22,6 @@ const CardView = () => {
   }
 
   const handleEdit = (bool) => () => {
-    console.log(bool)
     setEdit(bool)
   }
 
