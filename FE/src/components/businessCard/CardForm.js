@@ -13,15 +13,14 @@ const CardForm = ({ card, onSubmit, toggleEdit, edit }) => {
     mobile: '',
     email: '',
     website: '',
+    ...card,
   }
-  useEffect(() => {
-    setFormFields({ ...initialState, ...card })
-  }, [])
 
   const [formFields, setFormFields] = useState(initialState)
   const [style, setStyle] = useState(defaultStyle)
   const dispatch = useDispatch()
   const form = useRef()
+  const latestState = useRef()
 
   const { id } = useParams()
 
@@ -38,14 +37,20 @@ const CardForm = ({ card, onSubmit, toggleEdit, edit }) => {
     const name = event.target.attributes.data.value
     const value = event.target.innerText
     const updates = { ...formFields, [name]: value }
-    console.log('blur')
     setFormFields(updates)
+    latestState.current = updates
     id && dispatch(updateCard(id, updates))
   }
 
   const handleClick = (e) => {
+    // if the user clicks outside the form WITHOUT bluring the input span, we need to blur that span to update local component state
+    const spanInFocus = document.activeElement
+    spanInFocus.blur()
+
     if (!form.current.contains(e.target) && e.target.type !== 'submit') {
-      onSubmit(formFields, id)
+      const latestComponentState = latestState.current
+      onSubmit(latestComponentState, id)
+
       if (!!id) toggleEdit(false)()
       // document.removeEventListener('mousedown', handleClick)
     }
@@ -53,6 +58,8 @@ const CardForm = ({ card, onSubmit, toggleEdit, edit }) => {
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClick)
+
+    //Since you set the useEffect to run only on initial mount, it gets the value of formFields from the closure that is formed when it is declared and hence even if the the formFields updates, formFields inside handleClick will refer to the same value that was present initially.
 
     return () => {
       document.removeEventListener('mousedown', handleClick)
@@ -65,6 +72,10 @@ const CardForm = ({ card, onSubmit, toggleEdit, edit }) => {
     if (edit) setStyle(editStyle)
     else setStyle(defaultStyle)
   }, [edit])
+
+  useEffect(() => {
+    latestState.current = formFields
+  }, [formFields])
 
   return (
     <div className='cardForm' ref={form}>

@@ -61,7 +61,6 @@ export function updateCard(id, updates) {
 }
 
 export function startUpdateCard(updates, id) {
-  console.log(updates)
   return (dispatch) => {
     return axios
       .patch(`http://localhost:3700/cards/${id}`, updates)
