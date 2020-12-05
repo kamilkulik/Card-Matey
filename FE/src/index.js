@@ -17,7 +17,7 @@ const jsx = (
 )
 
 let hasRendered = false
-function renderApp() {
+const renderApp = () => {
   if (!hasRendered) {
     ReactDOM.render(jsx, document.getElementById('root'))
     hasRendered = true
