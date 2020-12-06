@@ -3,10 +3,14 @@
   height: 100vh;
   display: grid;
   grid-template-columns: 0.6fr 0.4fr;
+  grid-template-areas:
+    'card side'
+    'canvas side';
   padding: 3rem;
 
   &__preview {
     padding: 3rem;
+    grid-area: card;
 
     &-container {
       display: flex;
@@ -23,5 +27,10 @@
 
   &__theme {
     padding: 3rem;
+    grid-area: side;
+  }
+
+  &__canvas {
+    grid-area: canvas;
   }
 }
