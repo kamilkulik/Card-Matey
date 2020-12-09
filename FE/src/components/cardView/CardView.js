@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { startDeleteCard, startUpdateCard, startAddCard } from '../../actions/cardActions'
 import { useSelector, useDispatch } from 'react-redux'
 import filterCardProps from '../../utilities/filterCardProps'
 import CardContainer from '../businessCard/CardContainer'
-import Canvas from '../canvas/Canvas'
 import CardForm from '../businessCard/CardForm'
+import logos from '../canvas/CanvasLogos'
 
 const CardView = () => {
   const { id } = useParams()
   const card = useSelector((state) => state.cards.find((card) => card.id === id))
+  const savedLogo = id && ((card.hasOwnProperty('cardSpec') && card.cardSpec.logo) || 'squares')
   const cleanDataObject = filterCardProps(card)
 
   const initialState = {
@@ -21,6 +22,7 @@ const CardView = () => {
     ...cleanDataObject,
   }
   const [formFields, setFormFields] = useState(initialState)
+  const [logo, setLogo] = useState(savedLogo)
 
   const [edit, setEdit] = useState(false)
 
@@ -43,13 +45,19 @@ const CardView = () => {
   }
 
   const handleOnSubmit = () => {
-    if (!id) dispatch(startAddCard(formFields))
-    else dispatch(startUpdateCard(formFields, id))
+    const updates = { ...formFields, cardSpec: { logo } }
+    // add validation so you don't add the same card twice
+    if (!id) {
+      dispatch(startAddCard(updates))
+    } else {
+      dispatch(startUpdateCard(updates, id))
+      setEdit(false)
+    }
   }
 
-  const draw = (ctx) => {
-    ctx.fillStyle = '#000000'
-    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+  const handleSelect = (e) => {
+    const value = e.target.value
+    setLogo(value)
   }
 
   return (
@@ -57,18 +65,24 @@ const CardView = () => {
       <div className='cardView__preview'>
         <button onClick={goBack}>&larr; Back</button>
         <div className='cardView__preview-container'>
-          <CardContainer>
-            <CardForm
-              id={id}
-              toggleEdit={handleEdit}
-              edit={edit}
-              formFields={formFields}
-              setFormFields={setFormFields}
-            />
+          <CardContainer logo={logo}>
+            <CardForm id={id} edit={edit} formFields={formFields} setFormFields={setFormFields} />
           </CardContainer>
         </div>
       </div>
-      <Canvas draw={draw} />
+      <div className='cardView__logo'>
+        {edit && (
+          <select value={logo} onChange={handleSelect}>
+            {logos.map((logo) => {
+              return (
+                <option value={logo.name} key={logo.name}>
+                  {logo.name}
+                </option>
+              )
+            })}
+          </select>
+        )}
+      </div>
       <div className='cardView__theme'>
         <button onClick={handleEdit(!edit)}>Edit</button>
         <br />

@@ -4,11 +4,7 @@ import useCanvas from '../../hooks/useCanvas'
 const Canvas = ({ draw }) => {
   const canvasRef = useCanvas(draw)
 
-  return (
-    <div className='cardView__canvas'>
-      <canvas ref={canvasRef}></canvas>
-    </div>
-  )
+  return <canvas ref={canvasRef} height={100} width={100} className={'canvas'}></canvas>
 }
 
 export default Canvas

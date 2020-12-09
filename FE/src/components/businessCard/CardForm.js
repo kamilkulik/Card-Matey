@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 const editStyle = { border: '1px dashed gray' }
 const defaultStyle = { border: '1px solid transparent' }
 
-const CardForm = ({ id, toggleEdit, edit, formFields, setFormFields }) => {
+const CardForm = ({ id, edit, formFields, setFormFields }) => {
   const [style, setStyle] = useState(defaultStyle)
   const dispatch = useDispatch()
   const form = useRef()
@@ -26,26 +26,6 @@ const CardForm = ({ id, toggleEdit, edit, formFields, setFormFields }) => {
     setFormFields(updates)
     id && dispatch(updateCard(id, updates))
   }
-
-  const handleClick = (e) => {
-    // if the user clicks outside the form WITHOUT bluring the input span, we need to blur that span to update local component state
-    const spanInFocus = document.activeElement
-    spanInFocus.blur()
-
-    if (!form.current.contains(e.target) && e.target.type !== 'submit') {
-      toggleEdit(false)()
-    }
-  }
-
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClick)
-
-    return () => {
-      document.removeEventListener('mousedown', handleClick)
-    }
-  }, [])
-
-  // const placeholders = ['First Name', 'Last Name', 'Mobile', 'Email', 'Website']
 
   useEffect(() => {
     if (edit) setStyle(editStyle)
