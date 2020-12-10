@@ -1,0 +1,33 @@
+#root {
+  position: relative;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  background-color: indigo;
+  height: 11rem;
+  list-style: none;
+
+  & li {
+    margin-left: 4rem;
+    padding: 1.5rem;
+    transition: all 1400ms cubic-bezier(0.19, 1, 0.22, 1);
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      box-shadow: 0px 1rem 2.4rem 1.5rem rgba(#fff, 0.4);
+    }
+  }
+
+  & li * {
+    font-weight: 100;
+    color: #fff;
+    letter-spacing: 0.5em;
+    font-size: 3rem;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+}

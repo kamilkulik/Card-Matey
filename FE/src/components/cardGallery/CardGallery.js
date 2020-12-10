@@ -13,9 +13,6 @@ const CardGallery = () => {
 
   return (
     <div className='gallery'>
-      <button className='button'>
-        <Link to={'/add'}>Create a new Card</Link>
-      </button>
       <ul className='gallery__layout'>
         {cardData.length > 0 &&
           cardData.map((card, index) => {

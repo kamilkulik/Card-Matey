@@ -1,8 +1,11 @@
 @import './base.scss';
 
 @import '../styles/button.scss';
+@import '../components/Carousel/arrow';
+@import '../components/Carousel/carousel';
 @import '../components/canvas/canvas';
 @import '../components/cardGallery/cardGallery';
 @import '../components/businessCard/cardForm';
 @import '../components/cardView/cardView.scss';
 @import '../components/businessCard/cardContainer';
+@import '../components/navigation/navigation';

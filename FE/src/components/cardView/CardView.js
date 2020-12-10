@@ -6,6 +6,7 @@ import filterCardProps from '../../utilities/filterCardProps'
 import CardContainer from '../businessCard/CardContainer'
 import CardForm from '../businessCard/CardForm'
 import logos from '../canvas/CanvasLogos'
+import CarouselContainer from '../Carousel/CarouselContainer'
 
 const CardView = () => {
   const { id } = useParams()
@@ -23,7 +24,6 @@ const CardView = () => {
   }
   const [formFields, setFormFields] = useState(initialState)
   const [logo, setLogo] = useState(savedLogo)
-
   const [edit, setEdit] = useState(false)
 
   const history = useHistory()
@@ -63,7 +63,9 @@ const CardView = () => {
   return (
     <div className='cardView'>
       <div className='cardView__preview'>
-        <button onClick={goBack}>&larr; Back</button>
+        <button className='button' onClick={goBack}>
+          &larr; Back
+        </button>
         <div className='cardView__preview-container'>
           <CardContainer logo={logo}>
             <CardForm id={id} edit={edit} formFields={formFields} setFormFields={setFormFields} />
@@ -82,13 +84,22 @@ const CardView = () => {
             })}
           </select>
         )}
+        <CarouselContainer />
       </div>
       <div className='cardView__theme'>
-        <button onClick={handleEdit(!edit)}>Edit</button>
+        <button className='button' onClick={handleEdit(!edit)}>
+          Edit
+        </button>
         <br />
-        <button onClick={handleDelete}>Delete Card</button>
+        <button className='button' onClick={handleDelete}>
+          Delete Card
+        </button>
         <br />
-        {(edit || !id) && <button onClick={handleOnSubmit}>Save</button>}
+        {(edit || !id) && (
+          <button className='button' onClick={handleOnSubmit}>
+            Save
+          </button>
+        )}
       </div>
     </div>
   )
