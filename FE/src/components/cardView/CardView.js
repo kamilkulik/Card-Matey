@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import filterCardProps from '../../utilities/filterCardProps'
 import CardContainer from '../businessCard/CardContainer'
 import CardForm from '../businessCard/CardForm'
-import logos from '../canvas/CanvasLogos'
 import CarouselContainer from '../Carousel/CarouselContainer'
 
 const CardView = () => {
@@ -55,11 +54,6 @@ const CardView = () => {
     }
   }
 
-  const handleSelect = (e) => {
-    const value = e.target.value
-    setLogo(value)
-  }
-
   return (
     <div className='cardView'>
       <div className='cardView__preview'>
@@ -73,18 +67,7 @@ const CardView = () => {
         </div>
       </div>
       <div className='cardView__logo'>
-        {edit && (
-          <select value={logo} onChange={handleSelect}>
-            {logos.map((logo) => {
-              return (
-                <option value={logo.name} key={logo.name}>
-                  {logo.name}
-                </option>
-              )
-            })}
-          </select>
-        )}
-        <CarouselContainer />
+        {edit && <CarouselContainer logo={logo} setLogo={setLogo} />}
       </div>
       <div className='cardView__theme'>
         <button className='button' onClick={handleEdit(!edit)}>

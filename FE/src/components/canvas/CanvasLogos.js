@@ -1,3 +1,6 @@
+// check on dynamic sizing
+// fallback state pattern
+
 const logos = [
   {
     name: 'squares',

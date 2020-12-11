@@ -3,10 +3,18 @@ import Carousel from './Carousel'
 import logos from '../canvas/CanvasLogos'
 import Canvas from '../canvas/CanvasSquares'
 
-const CarouselContainer = () => {
-  const [carouselPage, setCarouselPage] = useState(0)
+const CarouselContainer = ({ logo, setLogo }) => {
+  const selectedLogo = logos.find((logoItem) => logoItem.name === logo)
+  const initialLogo = logos.indexOf(selectedLogo)
 
-  const transitionDur = 1000
+  const [carouselPage, setCarouselPage] = useState(initialLogo)
+
+  React.useEffect(() => {
+    const selectedLogo = logos[carouselPage].name
+    setLogo(selectedLogo)
+  }, [carouselPage])
+
+  const transitionDur = 500
 
   return (
     <div className='wrapper'>
