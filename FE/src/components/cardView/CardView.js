@@ -6,6 +6,7 @@ import filterCardProps from '../../utilities/filterCardProps'
 import CardContainer from '../businessCard/CardContainer'
 import CardForm from '../businessCard/CardForm'
 import CarouselContainer from '../Carousel/CarouselContainer'
+import cardPatterns from '../businessCard/CardPatterns'
 
 const CardView = () => {
   const { id } = useParams()
@@ -23,6 +24,7 @@ const CardView = () => {
   }
   const [formFields, setFormFields] = useState(initialState)
   const [logo, setLogo] = useState(savedLogo)
+  const [theme, setTheme] = useState('none')
   const [edit, setEdit] = useState(false)
 
   const history = useHistory()
@@ -54,6 +56,17 @@ const CardView = () => {
     }
   }
 
+  React.useEffect(() => {
+    const pattern = cardPatterns.find((pattern) => pattern.name === theme).pattern
+    const root = document.documentElement
+    root.style.setProperty('--cardPattern', pattern)
+  }, [theme])
+
+  const handleSelect = (e) => {
+    const value = e.target.value
+    setTheme(value)
+  }
+
   return (
     <div className='cardView'>
       <div className='cardView__preview'>
@@ -82,6 +95,17 @@ const CardView = () => {
           <button className='button' onClick={handleOnSubmit}>
             Save
           </button>
+        )}
+        {edit && (
+          <select value={theme} onChange={handleSelect}>
+            {cardPatterns.map((pattern) => {
+              return (
+                <option value={pattern.name} key={pattern.name}>
+                  {pattern.name}
+                </option>
+              )
+            })}
+          </select>
         )}
       </div>
     </div>
