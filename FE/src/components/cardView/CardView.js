@@ -11,7 +11,8 @@ import cardPatterns from '../businessCard/CardPatterns'
 const CardView = () => {
   const { id } = useParams()
   const card = useSelector((state) => state.cards.find((card) => card.id === id))
-  const savedLogo = id && ((card.hasOwnProperty('cardSpec') && card.cardSpec.logo) || 'squares')
+  const cardSpec = id && card.hasOwnProperty('cardSpec')
+  const savedSpec = (cardSpec && card.cardSpec) || { logo: 'squares', theme: 'none' }
   const cleanDataObject = filterCardProps(card)
 
   const initialState = {
@@ -23,8 +24,8 @@ const CardView = () => {
     ...cleanDataObject,
   }
   const [formFields, setFormFields] = useState(initialState)
-  const [logo, setLogo] = useState(savedLogo)
-  const [theme, setTheme] = useState('none')
+  const [logo, setLogo] = useState(savedSpec.logo || 'squares')
+  const [theme, setTheme] = useState(savedSpec.theme || 'none')
   const [edit, setEdit] = useState(false)
 
   const history = useHistory()
@@ -46,7 +47,7 @@ const CardView = () => {
   }
 
   const handleOnSubmit = () => {
-    const updates = { ...formFields, cardSpec: { logo } }
+    const updates = { ...formFields, cardSpec: { logo, theme } }
     // add validation so you don't add the same card twice
     if (!id) {
       dispatch(startAddCard(updates))
@@ -57,6 +58,7 @@ const CardView = () => {
   }
 
   React.useEffect(() => {
+    console.log(savedSpec)
     const pattern = cardPatterns.find((pattern) => pattern.name === theme).pattern
     const root = document.documentElement
     root.style.setProperty('--cardPattern', pattern)
@@ -74,7 +76,7 @@ const CardView = () => {
           &larr; Back
         </button>
         <div className='cardView__preview-container'>
-          <CardContainer logo={logo}>
+          <CardContainer spec={{ logo, theme }}>
             <CardForm id={id} edit={edit} formFields={formFields} setFormFields={setFormFields} />
           </CardContainer>
         </div>

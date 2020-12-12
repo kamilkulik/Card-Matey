@@ -6,9 +6,13 @@ import CardText from '../businessCard/CardText'
 
 const CardGallery = () => {
   const cardData = useSelector((state) => state.cards)
-  const cardLogo = (card) => {
-    if ('cardSpec' in card) return card.cardSpec.logo
-    else return 'squares'
+  const cardSpec = (card) => {
+    if ('cardSpec' in card) return card.cardSpec
+    else
+      return {
+        logo: 'squares',
+        theme: 'none',
+      }
   }
 
   return (
@@ -19,7 +23,7 @@ const CardGallery = () => {
             return (
               <li key={card.id}>
                 <Link to={`/${card.id}`} className='gallery__link'>
-                  <CardContainer logo={cardLogo(card)}>
+                  <CardContainer spec={cardSpec(card)}>
                     <CardText card={card} />
                   </CardContainer>
                 </Link>

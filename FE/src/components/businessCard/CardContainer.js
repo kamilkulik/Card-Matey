@@ -4,7 +4,11 @@ import useDynamicFont from '../../hooks/useDynamicFont'
 import canvasLogos from '../canvas/CanvasLogos'
 import CanvasSquares from '../canvas/CanvasSquares'
 
-const CardContainer = ({ size: { width }, children, logo: logoProp = 'squares' }) => {
+const CardContainer = ({
+  size: { width },
+  children,
+  spec: { logo: logoProp = 'squares', theme: themeProp = 'none' },
+}) => {
   useDynamicFont(12, width)
 
   return (
