@@ -12,6 +12,7 @@ const CardGallery = () => {
       return {
         logo: 'squares',
         theme: 'none',
+        colour: 'black',
       }
   }
 
@@ -19,7 +20,7 @@ const CardGallery = () => {
     <div className='gallery'>
       <ul className='gallery__layout'>
         {cardData.length > 0 &&
-          cardData.map((card, index) => {
+          cardData.map((card) => {
             return (
               <li key={card.id}>
                 <Link to={`/${card.id}`} className='gallery__link'>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { startDeleteCard, startUpdateCard, startAddCard } from '../../actions/cardActions'
 import { useSelector, useDispatch } from 'react-redux'
@@ -6,7 +6,7 @@ import filterCardProps from '../../utilities/filterCardProps'
 import CardContainer from '../businessCard/CardContainer'
 import CardForm from '../businessCard/CardForm'
 import CarouselContainer from '../Carousel/CarouselContainer'
-import cardPatterns from '../businessCard/CardPatterns'
+import cardPatterns, { colours } from '../businessCard/CardPatterns'
 
 const CardView = () => {
   const { id } = useParams()
@@ -24,8 +24,13 @@ const CardView = () => {
     ...cleanDataObject,
   }
   const [formFields, setFormFields] = useState(initialState)
-  const [logo, setLogo] = useState(savedSpec.logo || 'squares')
-  const [theme, setTheme] = useState(savedSpec.theme || 'none')
+  const [cardSpecState, setCardSpecState] = useState({
+    logo: savedSpec.logo || 'squares',
+    theme: savedSpec.theme || 'none',
+    colour: savedSpec.colour || 'Black',
+  })
+  const { logo, theme, colour } = cardSpecState
+
   const [edit, setEdit] = useState(false)
 
   const history = useHistory()
@@ -47,7 +52,7 @@ const CardView = () => {
   }
 
   const handleOnSubmit = () => {
-    const updates = { ...formFields, cardSpec: { logo, theme } }
+    const updates = { ...formFields, cardSpec: { logo, theme, colour } }
     // add validation so you don't add the same card twice
     if (!id) {
       dispatch(startAddCard(updates))
@@ -57,16 +62,20 @@ const CardView = () => {
     }
   }
 
-  React.useEffect(() => {
-    console.log(savedSpec)
-    const pattern = cardPatterns.find((pattern) => pattern.name === theme).pattern
+  useEffect(() => {
+    const pattern = cardPatterns().find((pattern) => pattern.name === theme).pattern
     const root = document.documentElement
     root.style.setProperty('--cardPattern', pattern)
   }, [theme])
 
   const handleSelect = (e) => {
     const value = e.target.value
-    setTheme(value)
+    const name = e.target.name
+    setCardSpecState({ ...cardSpecState, [name]: value })
+  }
+
+  const handleLogo = (logo) => {
+    setCardSpecState({ ...cardSpecState, logo })
   }
 
   return (
@@ -76,13 +85,13 @@ const CardView = () => {
           &larr; Back
         </button>
         <div className='cardView__preview-container'>
-          <CardContainer spec={{ logo, theme }}>
+          <CardContainer spec={{ logo, theme, colour }}>
             <CardForm id={id} edit={edit} formFields={formFields} setFormFields={setFormFields} />
           </CardContainer>
         </div>
       </div>
       <div className='cardView__logo'>
-        {edit && <CarouselContainer logo={logo} setLogo={setLogo} />}
+        {edit && <CarouselContainer logo={cardSpecState.logo} setLogo={handleLogo} />}
       </div>
       <div className='cardView__theme'>
         <button className='button' onClick={handleEdit(!edit)}>
@@ -99,11 +108,22 @@ const CardView = () => {
           </button>
         )}
         {edit && (
-          <select value={theme} onChange={handleSelect}>
-            {cardPatterns.map((pattern) => {
+          <select value={theme} onChange={handleSelect} name='theme'>
+            {cardPatterns().map((pattern) => {
               return (
                 <option value={pattern.name} key={pattern.name}>
                   {pattern.name}
+                </option>
+              )
+            })}
+          </select>
+        )}
+        {edit && (
+          <select value={colour} onChange={handleSelect} name='colour'>
+            {colours.map((colour) => {
+              return (
+                <option value={colour.name} key={colour.name}>
+                  {colour.name}
                 </option>
               )
             })}

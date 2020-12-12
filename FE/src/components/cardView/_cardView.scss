@@ -30,6 +30,8 @@
   &__theme {
     padding: 3rem;
     grid-area: side;
+    display: flex;
+    flex-direction: column;
   }
 
   &__canvas {
