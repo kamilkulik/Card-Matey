@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Carousel from './Carousel'
 import logos from '../canvas/CanvasLogos'
-import Canvas from '../canvas/CanvasSquares'
+import Canvas from '../canvas/Canvas'
 
 const CarouselContainer = ({ logo, setLogo }) => {
   const selectedLogo = logos.find((logoItem) => logoItem.name === logo)

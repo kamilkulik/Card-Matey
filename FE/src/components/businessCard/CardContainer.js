@@ -3,7 +3,7 @@ import sizeMe from 'react-sizeme'
 import useDynamicFont from '../../hooks/useDynamicFont'
 import canvasLogos from '../canvas/CanvasLogos'
 import cardPatterns from '../businessCard/CardPatterns'
-import CanvasSquares from '../canvas/CanvasSquares'
+import Canvas from '../canvas/Canvas'
 
 const CardContainer = ({
   size: { width },
@@ -18,9 +18,7 @@ const CardContainer = ({
 
   return (
     <div className='presentation' style={{ backgroundImage: theme }}>
-      <div className='presentation__canvas'>
-        {<CanvasSquares draw={drawFunction} key={logoProp} />}
-      </div>
+      <div className='presentation__canvas'>{<Canvas draw={drawFunction} key={logoProp} />}</div>
       <div className='presentation__data'>
         <div className='presentation__data-text'>{children}</div>
       </div>
