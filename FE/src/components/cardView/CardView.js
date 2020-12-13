@@ -95,11 +95,9 @@ const CardView = () => {
       {edit && (
         <div className='cardView__theme'>
           <div className='cardView__theme-buttons'>
-            {id && (
-              <button className='button' onClick={handleOnSubmit}>
-                Save
-              </button>
-            )}
+            <button className='button' onClick={handleOnSubmit}>
+              Save
+            </button>
             <button className='button' onClick={() => setModalIsOpen(true)}>
               Delete Card
             </button>

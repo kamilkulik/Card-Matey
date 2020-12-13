@@ -3,6 +3,7 @@
   height: 85vh;
   display: grid;
   grid-template-columns: 60% 40%;
+  grid-template-rows: 1fr;
   grid-template-areas: 'card side';
 
   &__preview {
