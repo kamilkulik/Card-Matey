@@ -16,6 +16,23 @@
     margin-right: 2rem;
     position: relative;
     background-color: white;
+    transition: all 0.2s ease-in-out;
+
+    &.active::before {
+      content: '';
+      top: -1rem;
+      left: -1rem;
+      border: 0.5rem solid purple;
+      background-color: transparent;
+      position: absolute;
+      height: 11rem;
+      width: 11rem;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+      cursor: pointer;
+    }
 
     &:last-child {
       &::after {

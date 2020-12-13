@@ -8,12 +8,13 @@ import CardForm from '../businessCard/CardForm'
 import { colours } from '../businessCard/CardPatterns'
 import ThemePreview from '../previewBox/ThemePreview'
 import LogoPreview from '../previewBox/LogoPreview'
+import Modal from '../modal/Modal'
 
 const CardView = () => {
   const { id } = useParams()
   const card = useSelector((state) => state.cards.find((card) => card.id === id))
   const cardSpec = id && card.hasOwnProperty('cardSpec')
-  const savedSpec = (cardSpec && card.cardSpec) || { name: 'squares', theme: 'none' }
+  const savedSpec = (cardSpec && card.cardSpec) || { logo: 'squares', theme: 'none' }
   const cleanDataObject = filterCardProps(card)
 
   const initialState = {
@@ -26,13 +27,14 @@ const CardView = () => {
   }
   const [formFields, setFormFields] = useState(initialState)
   const [cardSpecState, setCardSpecState] = useState({
-    logo: savedSpec.name || 'squares',
+    logo: savedSpec.logo || 'squares',
     theme: savedSpec.theme || 'none',
     colour: savedSpec.colour || 'Black',
   })
   const { logo, theme, colour } = cardSpecState
 
   const [edit, setEdit] = useState(false)
+  const [modalIsOpen, setModalIsOpen] = useState(false)
 
   const history = useHistory()
   const dispatch = useDispatch()
@@ -43,13 +45,6 @@ const CardView = () => {
 
   const handleEdit = (bool) => () => {
     setEdit(bool)
-  }
-
-  const handleDelete = () => {
-    if (window.confirm('Please confirm you want to delete this Card')) {
-      dispatch(startDeleteCard(id))
-      history.push('/')
-    }
   }
 
   const handleOnSubmit = () => {
@@ -68,8 +63,20 @@ const CardView = () => {
     setCardSpecState({ ...cardSpecState, [name]: value })
   }
 
+  const handleDelete = (response) => () => {
+    if (response) {
+      dispatch(startDeleteCard(id))
+      history.push('/')
+    } else setModalIsOpen(false)
+  }
+
   return (
     <div className='cardView'>
+      <Modal
+        modalIsOpen={modalIsOpen}
+        setModalIsOpen={setModalIsOpen}
+        handleDelete={handleDelete}
+      />
       <div className='cardView__preview'>
         <div className='cardView__preview-buttons'>
           <button className='button' onClick={goBack}>
@@ -88,33 +95,30 @@ const CardView = () => {
       {edit && (
         <div className='cardView__theme'>
           <div className='cardView__theme-buttons'>
-            {(edit || !id) && (
+            {id && (
               <button className='button' onClick={handleOnSubmit}>
                 Save
               </button>
             )}
-            <button className='button' onClick={handleDelete}>
+            <button className='button' onClick={() => setModalIsOpen(true)}>
               Delete Card
             </button>
           </div>
-          {edit && (
-            <React.Fragment>
-              <h1>Select card background</h1>
-
-              <div className='cardView__theme-colours'>
-                {colours.map((colour) => (
-                  <div
-                    style={{ backgroundColor: colour.name }}
-                    key={colour.name}
-                    onClick={() => handleSelect('colour', colour.name)}
-                  />
-                ))}
-              </div>
-              <ThemePreview handleSelect={handleSelect} />
-              <h1>Select your logo</h1>
-              <LogoPreview handleSelect={handleSelect} />
-            </React.Fragment>
-          )}
+          <h1>Select card background</h1>
+          <div className='cardView__theme-colours'>
+            {!(theme === 'none') &&
+              colours.map((singleColour) => (
+                <div
+                  style={{ backgroundColor: singleColour.name }}
+                  key={singleColour.name}
+                  onClick={() => handleSelect('colour', singleColour.name)}
+                  className={colour === singleColour.name ? 'active' : null}
+                />
+              ))}
+          </div>
+          <ThemePreview savedTheme={theme} handleSelect={handleSelect} />
+          <h1>Select your logo</h1>
+          <LogoPreview savedLogo={logo} handleSelect={handleSelect} />
         </div>
       )}
     </div>
