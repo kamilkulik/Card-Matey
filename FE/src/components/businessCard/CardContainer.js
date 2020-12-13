@@ -12,7 +12,8 @@ const CardContainer = ({
 }) => {
   useDynamicFont(12, width)
 
-  const theme = cardPatterns(colourProp).find((pattern) => pattern.name === themeProp).pattern
+  const theme = cardPatterns(colourProp, width).find((pattern) => pattern.name === themeProp)
+    .pattern
   const drawFunction = canvasLogos.find((logo) => logo.name === logoProp).draw
 
   return (

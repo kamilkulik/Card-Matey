@@ -4,52 +4,43 @@
 const logos = [
   {
     name: 'squares',
-    draw: (ctx) => {
-      const {
-        canvas: { clientWidth: width },
-        canvas: { clientHeight: height },
-      } = ctx
-      ctx.fillStyle = 'rgb(200,0,0)'
-      ctx.fillRect(15, 15, 50, 50)
+    draw: (ctx, magicNumber) => {
+      ctx.fillStyle = '#000'
+      ctx.fillRect(15 * magicNumber, 15 * magicNumber, 50 * magicNumber, 50 * magicNumber)
 
-      ctx.fillStyle = 'rgba(0, 0, 200, 0.5)'
-      ctx.fillRect(35, 35, 50, 50)
+      ctx.fillStyle = '#BDBBBB'
+      ctx.fillRect(35 * magicNumber, 35 * magicNumber, 50 * magicNumber, 50 * magicNumber)
     },
   },
   {
     name: 'triangles',
-    draw: (ctx) => {
+    draw: (ctx, magicNumber) => {
       ctx.beginPath()
-      ctx.moveTo(10, 50)
-      ctx.lineTo(40, 75)
-      ctx.lineTo(40, 25)
-      ctx.fillStyle = 'rgb(200,0,0)'
+      ctx.moveTo(10 * magicNumber, 50 * magicNumber)
+      ctx.lineTo(40 * magicNumber, 75 * magicNumber)
+      ctx.lineTo(40 * magicNumber, 25 * magicNumber)
+      ctx.fillStyle = '#000'
       ctx.fill()
 
       ctx.beginPath()
-      ctx.moveTo(90, 50)
-      ctx.lineTo(60, 75)
-      ctx.lineTo(60, 25)
-      ctx.fillStyle = 'rgb(0,0,200, 0.5)'
+      ctx.moveTo(90 * magicNumber, 50 * magicNumber)
+      ctx.lineTo(60 * magicNumber, 75 * magicNumber)
+      ctx.lineTo(60 * magicNumber, 25 * magicNumber)
+      ctx.fillStyle = '#BDBBBB'
       ctx.fill()
     },
   },
   {
     name: 'circles',
-    draw: (ctx) => {
-      ctx.lineWidth = 2
+    draw: (ctx, magicNumber) => {
+      ctx.lineWidth = 4
 
       for (let i = 1; i <= 4; i++) {
-        const colors = [
-          'rgb(200, 0, 0)',
-          'rgba(200, 0, 0, 0.5)',
-          'rgba(0, 0, 200, 0.5)',
-          'rgba(0, 0, 200)',
-        ]
-        let x = 20 * i
+        const colors = ['#000', '#616161', '#939393', '#BDBBBB']
+        let x = 20 * i * magicNumber
 
         ctx.beginPath()
-        ctx.arc(x, 50, 15, 0, Math.PI * 2, false)
+        ctx.arc(x, 50 * magicNumber, 15 * magicNumber, 0, Math.PI * 2, false)
         ctx.strokeStyle = colors[i - 1]
         ctx.stroke()
       }
