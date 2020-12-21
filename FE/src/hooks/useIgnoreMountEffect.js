@@ -1,12 +1,12 @@
-import React from "react"
+import React from 'react';
 
 const useIgnoreMountEffect = (func, deps) => {
-  const didMount = React.useRef(false)
+  const didMount = React.useRef(false);
 
   React.useEffect(() => {
-    if (didMount.current) func()
-    else didMount.current = true
-  }, [deps])
-}
+    if (didMount.current) func();
+    else didMount.current = true;
+  }, [deps]);
+};
 
-export default useIgnoreMountEffect
+export default useIgnoreMountEffect;

@@ -1,20 +1,20 @@
-import React, { useState } from 'react'
-import Carousel from './Carousel'
-import logos from '../canvas/CanvasLogos'
-import Canvas from '../canvas/Canvas'
+import React, { useState } from 'react';
+import Carousel from './Carousel';
+import logos from '../canvas/CanvasLogos';
+import Canvas from '../canvas/Canvas';
 
 const CarouselContainer = ({ logo, setLogo }) => {
-  const selectedLogo = logos.find((logoItem) => logoItem.name === logo)
-  const initialLogo = logos.indexOf(selectedLogo)
+  const selectedLogo = logos.find((logoItem) => logoItem.name === logo);
+  const initialLogo = logos.indexOf(selectedLogo);
 
-  const [carouselPage, setCarouselPage] = useState(initialLogo)
+  const [carouselPage, setCarouselPage] = useState(initialLogo);
 
   React.useEffect(() => {
-    const selectedLogo = logos[carouselPage].name
-    setLogo(selectedLogo)
-  }, [carouselPage])
+    const selectedLogo = logos[carouselPage].name;
+    setLogo(selectedLogo);
+  }, [carouselPage]);
 
-  const transitionDur = 500
+  const transitionDur = 500;
 
   return (
     <div className='wrapper'>
@@ -24,7 +24,7 @@ const CarouselContainer = ({ logo, setLogo }) => {
         </div>
       </Carousel>
     </div>
-  )
-}
+  );
+};
 
-export default CarouselContainer
+export default CarouselContainer;

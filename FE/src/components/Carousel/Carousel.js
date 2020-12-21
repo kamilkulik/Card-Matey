@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import Arrow from './Arrow'
 import useInMotion from '../../hooks/useInMotion'
-import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 const Carousel = ({ slides, transitionDuration = 1000, pageNo, children, classes = '' }) => {
   const [page, setPage] = useState(0)
@@ -12,13 +12,13 @@ const Carousel = ({ slides, transitionDuration = 1000, pageNo, children, classes
 
   useInMotion(setInMotion, transitionDuration, page)
 
-  const changePage = (direction) => () => {
-    setDirection(direction)
+  const changePage = (selectedDirection) => () => {
+    setDirection(selectedDirection)
     if (!inMotion) {
-      if (direction === 'next' && page < pageCount) {
+      if (selectedDirection === 'next' && page < pageCount) {
         setPage(page + 1)
         pageNo(page + 1)
-      } else if (direction === 'previous' && page > 0) {
+      } else if (selectedDirection === 'previous' && page > 0) {
         setPage(page - 1)
         pageNo(page - 1)
       }
@@ -28,13 +28,13 @@ const Carousel = ({ slides, transitionDuration = 1000, pageNo, children, classes
   const currentPage = [slides[page]]
 
   return (
-    <React.Fragment>
+    <>
       {page > 0 && <Arrow previous controls={changePage} />}
       <div className={`carousel${classes}`}>
         <div className={`carousel--inner-container ${direction}`}>
           <TransitionGroup component={null}>
             {currentPage.map((story) => (
-              <CSSTransition key={story.name} timeout={transitionDuration} classNames={`node`}>
+              <CSSTransition key={story.name} timeout={transitionDuration} classNames='node'>
                 {children}
               </CSSTransition>
             ))}
@@ -42,7 +42,7 @@ const Carousel = ({ slides, transitionDuration = 1000, pageNo, children, classes
         </div>
       </div>
       {page < pageCount && <Arrow next controls={changePage} />}
-    </React.Fragment>
+    </>
   )
 }
 

@@ -1,5 +1,5 @@
-import React from 'react'
-import Modal from 'react-modal'
+import React from 'react';
+import Modal from 'react-modal';
 
 const customStyles = {
   content: {
@@ -10,12 +10,12 @@ const customStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
   },
-}
+};
 
 const ModalThing = ({ modalIsOpen, setModalIsOpen, handleDelete }) => {
   const closeModal = () => {
-    setModalIsOpen(false)
-  }
+    setModalIsOpen(false);
+  };
 
   return (
     <div>
@@ -25,7 +25,8 @@ const ModalThing = ({ modalIsOpen, setModalIsOpen, handleDelete }) => {
         // onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={customStyles}
-        contentLabel='Example Modal'>
+        contentLabel='Example Modal'
+      >
         <h1>Are you sure you want to delete this card?</h1>
         <button className='button' onClick={handleDelete(true)} style={{ marginRight: '2rem' }}>
           Delete
@@ -35,7 +36,7 @@ const ModalThing = ({ modalIsOpen, setModalIsOpen, handleDelete }) => {
         </button>
       </Modal>
     </div>
-  )
-}
+  );
+};
 
-export default ModalThing
+export default ModalThing;

@@ -1,28 +1,28 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react';
 
 const canvasResize = (canvas) => {
-  const { width, height } = canvas.getBoundingClientRect()
+  const { width, height } = canvas.getBoundingClientRect();
 
   if (canvas.width !== width || canvas.height !== height) {
-    canvas.width = width
-    canvas.height = height
-    return true
+    canvas.width = width;
+    canvas.height = height;
+    return true;
   }
 
-  return false
-}
+  return false;
+};
 
 const useCanvas = (draw) => {
-  const canvasRef = useRef(null)
+  const canvasRef = useRef(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    const context = canvas.getContext('2d')
+    const canvas = canvasRef.current;
+    const context = canvas.getContext('2d');
     // canvasResize(canvas)
-    draw(context)
-  }, [draw])
+    draw(context);
+  }, [draw]);
 
-  return canvasRef
-}
+  return canvasRef;
+};
 
-export default useCanvas
+export default useCanvas;
