@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Navigation = () => (
   <ul className='navigation'>
@@ -10,6 +10,6 @@ const Navigation = () => (
       <Link to='/add'>Create Card</Link>
     </li>
   </ul>
-);
+)
 
-export default Navigation;
+export default Navigation

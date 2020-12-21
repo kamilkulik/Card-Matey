@@ -1,40 +1,40 @@
-import { useEffect, useReducer } from 'react';
-import axios from 'axios';
+import { useEffect, useReducer } from 'react'
+import axios from 'axios'
 
-const initialState = { status: 'idle', data: '', error: null };
+const initialState = { status: 'idle', data: '', error: null }
 
 function reducer(state, action) {
   switch (action.type) {
     case 'FETCHING ':
-      return { ...initialState, status: 'fetching' };
+      return { ...initialState, status: 'fetching' }
     case 'FETCHED':
-      return { ...initialState, status: 'fetched', data: action.payload };
+      return { ...initialState, status: 'fetched', data: action.payload }
     case 'FETCH_ERR':
-      return { ...initialState, status: 'error', error: action.payload };
+      return { ...initialState, status: 'error', error: action.payload }
     default:
-      return state;
+      return state
   }
 }
 
 const useGetCard = (card) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState)
 
   useEffect(() => {
-    dispatch({ type: 'FETCHING' });
+    dispatch({ type: 'FETCHING' })
     axios
       .get(`http://localhost:3700/cards${card ? `/${card}` : ''}`)
       .then((res) => {
-        dispatch({ type: 'FETCHED', payload: res.data });
+        dispatch({ type: 'FETCHED', payload: res.data })
       })
       .catch((err) => {
-        dispatch({ type: 'FETCH_ERR', payload: err });
-      });
-  }, [card]);
+        dispatch({ type: 'FETCH_ERR', payload: err })
+      })
+  }, [card])
 
-  return { ...state };
-};
+  return { ...state }
+}
 
-export default useGetCard;
+export default useGetCard
 
 /*
 DOCUMENTATION

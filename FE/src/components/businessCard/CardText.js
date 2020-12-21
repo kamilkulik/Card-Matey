@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import filterCardData from '../../utilities/filterCardProps';
+import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import filterCardData from '../../utilities/filterCardProps'
 
 const CardText = ({ card }) => {
   const initialState = {
@@ -10,20 +11,20 @@ const CardText = ({ card }) => {
     mobile: '',
     email: '',
     website: '',
-  };
-  const [formFields, setFormFields] = useState(initialState);
-  const { id } = useParams();
-  const reduxData = useSelector((state) => state.cards.find((card) => card.id === id));
+  }
+  const [formFields, setFormFields] = useState(initialState)
+  const { id } = useParams()
+  const reduxData = useSelector((state) => state.cards.find((savedCard) => savedCard.id === id))
 
-  let cardData;
-  if (!id) cardData = card;
-  else cardData = reduxData;
+  let cardData
+  if (!id) cardData = card
+  else cardData = reduxData
 
-  const cleadDataObject = filterCardData(cardData);
+  const cleadDataObject = filterCardData(cardData)
 
   useEffect(() => {
-    setFormFields({ ...initialState, ...cleadDataObject });
-  }, [reduxData]);
+    setFormFields({ ...initialState, ...cleadDataObject })
+  }, [reduxData])
 
   return (
     <p>
@@ -37,7 +38,11 @@ const CardText = ({ card }) => {
       <br />
       {formFields.website}
     </p>
-  );
-};
+  )
+}
 
-export default CardText;
+CardText.propTypes = {
+  card: PropTypes.objectOf(PropTypes.object()).isRequired,
+}
+
+export default CardText

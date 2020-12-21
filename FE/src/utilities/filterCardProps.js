@@ -2,11 +2,11 @@ const filterCardProps = (card) => {
   if (card) {
     const cleanData = Object.entries(card).filter(
       (property) => !['id', 'timestamp', 'cardSpec'].includes(property[0]),
-    );
-    const cleanDataObject = Object.fromEntries(cleanData);
-    return cleanDataObject;
+    )
+    const cleanDataObject = Object.fromEntries(cleanData)
+    return cleanDataObject
   }
-  return {};
-};
+  return {}
+}
 
-export default filterCardProps;
+export default filterCardProps

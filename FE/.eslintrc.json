@@ -13,9 +13,9 @@
   },
   "plugins": ["react"],
   "rules": {
-    "semi": [2],
-    "quotes": [2, "single", { "avoidEscape": true }],
-    "jsx-quotes": [2, "prefer-single"],
-    "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx"] }]
+    "semi": ["warn", "never"],
+    "quotes": ["warn", "single", { "avoidEscape": true }],
+    "jsx-quotes": ["warn", "prefer-single"],
+    "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"] }]
   }
 }

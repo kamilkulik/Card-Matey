@@ -1,19 +1,19 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import CardContainer from '../businessCard/CardContainer';
-import CardText from '../businessCard/CardText';
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import CardContainer from '../businessCard/CardContainer'
+import CardText from '../businessCard/CardText'
 
 const CardGallery = () => {
-  const cardData = useSelector((state) => state.cards);
+  const cardData = useSelector((state) => state.cards)
   const cardSpec = (card) => {
-    if ('cardSpec' in card) return card.cardSpec;
+    if ('cardSpec' in card) return card.cardSpec
     return {
       logo: 'squares',
       theme: 'none',
       colour: 'black',
-    };
-  };
+    }
+  }
 
   return (
     <div className='gallery'>
@@ -30,7 +30,7 @@ const CardGallery = () => {
           ))}
       </ul>
     </div>
-  );
-};
+  )
+}
 
-export default CardGallery;
+export default CardGallery

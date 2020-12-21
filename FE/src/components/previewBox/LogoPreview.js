@@ -1,7 +1,7 @@
-import React from 'react';
-import logos from '../canvas/CanvasLogos';
-import Canvas from '../canvas/Canvas';
-import PreviewBox from './PreviewBox';
+import React from 'react'
+import logos from '../canvas/CanvasLogos'
+import Canvas from '../canvas/Canvas'
+import PreviewBox from './PreviewBox'
 
 const LogoPreview = ({ savedLogo, handleSelect }) => (
   <PreviewBox>
@@ -17,6 +17,6 @@ const LogoPreview = ({ savedLogo, handleSelect }) => (
       </div>
     ))}
   </PreviewBox>
-);
+)
 
-export default LogoPreview;
+export default LogoPreview

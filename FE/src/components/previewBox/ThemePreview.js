@@ -1,6 +1,6 @@
-import React from 'react';
-import themes from '../businessCard/CardPatterns';
-import PreviewBox from './PreviewBox';
+import React from 'react'
+import themes from '../businessCard/CardPatterns'
+import PreviewBox from './PreviewBox'
 
 const ThemePreview = ({ savedTheme, handleSelect }) => (
   <PreviewBox>
@@ -15,6 +15,6 @@ const ThemePreview = ({ savedTheme, handleSelect }) => (
       />
     ))}
   </PreviewBox>
-);
+)
 
-export default ThemePreview;
+export default ThemePreview

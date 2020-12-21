@@ -1,23 +1,23 @@
-import { useEffect } from 'react';
+import { useEffect } from 'react'
 
 const useDynamicFont = (targetFont, componentWidth) => {
   useEffect(() => {
-    if (!componentWidth) return;
-    const root = document.documentElement;
+    if (!componentWidth) return
+    const root = document.documentElement
     const currentFontSize = parseInt(
       getComputedStyle(document.documentElement).getPropertyValue('--card-font-size'),
-    );
+    )
 
-    const magicNumber = targetFont / 317;
-    const newFontSize = Math.round(componentWidth * magicNumber);
+    const magicNumber = targetFont / 317
+    const newFontSize = Math.round(componentWidth * magicNumber)
 
     if (currentFontSize !== newFontSize) {
-      root.style.setProperty('--card-font-size', `${newFontSize}px`);
+      root.style.setProperty('--card-font-size', `${newFontSize}px`)
     }
-  }, [componentWidth]);
-};
+  }, [componentWidth])
+}
 
-export default useDynamicFont;
+export default useDynamicFont
 
 /*
 DOCUMENTATION
