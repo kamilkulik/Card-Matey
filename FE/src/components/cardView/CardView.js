@@ -12,7 +12,7 @@ import Modal from '../modal/Modal'
 
 const CardView = () => {
   const { id } = useParams()
-  const card = useSelector((state) => state.cards.find((card) => card.id === id))
+  const card = useSelector((state) => state.cards.find((savedCard) => savedCard.id === id))
   const cardSpec = id && card.hasOwnProperty('cardSpec')
   const savedSpec = (cardSpec && card.cardSpec) || { logo: 'squares', theme: 'none' }
   const cleanDataObject = filterCardProps(card)

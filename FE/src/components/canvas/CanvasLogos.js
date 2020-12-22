@@ -35,7 +35,7 @@ const logos = [
     draw: (ctx, magicNumber) => {
       ctx.lineWidth = 4
 
-      for (let i = 1; i <= 4; i++) {
+      for (let i = 1; i <= 4; i += 1) {
         const colors = ['#000', '#616161', '#939393', '#BDBBBB']
         const x = 20 * i * magicNumber
 
