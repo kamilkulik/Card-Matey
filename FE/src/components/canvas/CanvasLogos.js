@@ -35,9 +35,9 @@ const logos = [
     draw: (ctx, magicNumber) => {
       ctx.lineWidth = 4
 
-      for (let i = 1; i <= 4; i++) {
+      for (let i = 1; i <= 4; i += 1) {
         const colors = ['#000', '#616161', '#939393', '#BDBBBB']
-        let x = 20 * i * magicNumber
+        const x = 20 * i * magicNumber
 
         ctx.beginPath()
         ctx.arc(x, 50 * magicNumber, 15 * magicNumber, 0, Math.PI * 2, false)

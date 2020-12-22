@@ -1,8 +1,9 @@
 import React from 'react'
 import sizeMe from 'react-sizeme'
+import PropTypes from 'prop-types'
 import useDynamicFont from '../../hooks/useDynamicFont'
 import canvasLogos from '../canvas/CanvasLogos'
-import cardPatterns from '../businessCard/CardPatterns'
+import cardPatterns from './CardPatterns'
 import Canvas from '../canvas/Canvas'
 
 const CardContainer = ({
@@ -18,12 +19,27 @@ const CardContainer = ({
 
   return (
     <div className='presentation' style={{ backgroundImage: theme }}>
-      <div className='presentation__canvas'>{<Canvas draw={drawFunction} key={logoProp} />}</div>
+      <div className='presentation__canvas'>
+        <Canvas draw={drawFunction} key={logoProp} />
+      </div>
       <div className='presentation__data'>
         <div className='presentation__data-text'>{children}</div>
       </div>
     </div>
   )
+}
+
+CardContainer.propTypes = {
+  size: PropTypes.shape({
+    height: PropTypes.number,
+    width: PropTypes.number,
+  }).isRequired,
+  spec: PropTypes.shape({
+    logo: PropTypes.string,
+    theme: PropTypes.string,
+    colour: PropTypes.string,
+  }).isRequired,
+  children: PropTypes.element.isRequired,
 }
 
 export default sizeMe()(CardContainer)

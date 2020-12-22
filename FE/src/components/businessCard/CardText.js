@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import filterCardData from '../../utilities/filterCardProps'
 import { useParams } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import filterCardData from '../../utilities/filterCardProps'
 
 const CardText = ({ card }) => {
   const initialState = {
@@ -13,7 +14,7 @@ const CardText = ({ card }) => {
   }
   const [formFields, setFormFields] = useState(initialState)
   const { id } = useParams()
-  const reduxData = useSelector((state) => state.cards.find((card) => card.id === id))
+  const reduxData = useSelector((state) => state.cards.find((savedCard) => savedCard.id === id))
 
   let cardData
   if (!id) cardData = card
@@ -27,7 +28,9 @@ const CardText = ({ card }) => {
 
   return (
     <p>
-      {formFields.firstName} {formFields.lastName}
+      {formFields.firstName}
+      {' '}
+      {formFields.lastName}
       <br />
       {formFields.mobile}
       <br />
@@ -36,6 +39,16 @@ const CardText = ({ card }) => {
       {formFields.website}
     </p>
   )
+}
+
+function isCorrectCard(propValue, key, componentName) {
+  if (!['string', 'object'].includes(typeof propValue[key])) {
+    return new Error(`invalid prop object key ${propValue[key]} passed to ${componentName}`)
+  } return 'no errors'
+}
+
+CardText.propTypes = {
+  card: PropTypes.objectOf(isCorrectCard).isRequired,
 }
 
 export default CardText

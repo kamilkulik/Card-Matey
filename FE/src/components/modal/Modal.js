@@ -1,5 +1,6 @@
 import React from 'react'
 import Modal from 'react-modal'
+import PropTypes from 'prop-types'
 
 const customStyles = {
   content: {
@@ -25,17 +26,24 @@ const ModalThing = ({ modalIsOpen, setModalIsOpen, handleDelete }) => {
         // onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={customStyles}
-        contentLabel='Example Modal'>
+        contentLabel='Example Modal'
+      >
         <h1>Are you sure you want to delete this card?</h1>
-        <button className='button' onClick={handleDelete(true)} style={{ marginRight: '2rem' }}>
+        <button className='button' onClick={handleDelete(true)} style={{ marginRight: '2rem' }} type='button'>
           Delete
         </button>
-        <button className='button' onClick={handleDelete(false)}>
+        <button className='button' onClick={handleDelete(false)} type='button'>
           Cancel
         </button>
       </Modal>
     </div>
   )
+}
+
+ModalThing.propTypes = {
+  modalIsOpen: PropTypes.bool.isRequired,
+  setModalIsOpen: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired,
 }
 
 export default ModalThing

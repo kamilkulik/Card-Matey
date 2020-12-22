@@ -13,9 +13,8 @@ export default function cardReducer(state = initialState, action) {
             ...card,
             ...action.updates,
           }
-        } else {
-          return card
         }
+        return card
       })
     case 'DELETE_CARD':
       return state.filter(({ id }) => id !== action.id)

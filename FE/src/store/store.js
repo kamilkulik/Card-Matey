@@ -1,4 +1,6 @@
-import { createStore, combineReducers, compose, applyMiddleware } from 'redux'
+import {
+  createStore, combineReducers, compose, applyMiddleware,
+} from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import cardReducer from '../reducers/cardReducer'
 
@@ -9,12 +11,12 @@ const rootReducer = combineReducers({
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const store = () => {
-  const store = createStore(
+  const reduxStore = createStore(
     rootReducer,
     undefined,
-    composeEnhancers(applyMiddleware(thunkMiddleware))
+    composeEnhancers(applyMiddleware(thunkMiddleware)),
   )
-  return store
+  return reduxStore
 }
 
 export default store

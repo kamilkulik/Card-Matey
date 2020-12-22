@@ -1,13 +1,12 @@
 const filterCardProps = (card) => {
-  if (!!card) {
+  if (card) {
     const cleanData = Object.entries(card).filter(
-      (property) => !['id', 'timestamp', 'cardSpec'].includes(property[0])
+      (property) => !['id', 'timestamp', 'cardSpec'].includes(property[0]),
     )
     const cleanDataObject = Object.fromEntries(cleanData)
     return cleanDataObject
-  } else {
-    return {}
   }
+  return {}
 }
 
 export default filterCardProps

@@ -8,29 +8,26 @@ const CardGallery = () => {
   const cardData = useSelector((state) => state.cards)
   const cardSpec = (card) => {
     if ('cardSpec' in card) return card.cardSpec
-    else
-      return {
-        logo: 'squares',
-        theme: 'none',
-        colour: 'black',
-      }
+    return {
+      logo: 'squares',
+      theme: 'none',
+      colour: 'black',
+    }
   }
 
   return (
     <div className='gallery'>
       <ul className='gallery__layout'>
-        {cardData.length > 0 &&
-          cardData.map((card) => {
-            return (
-              <li key={card.id}>
-                <Link to={`/${card.id}`} className='gallery__link'>
-                  <CardContainer spec={cardSpec(card)}>
-                    <CardText card={card} />
-                  </CardContainer>
-                </Link>
-              </li>
-            )
-          })}
+        {cardData.length > 0
+          && cardData.map((card) => (
+            <li key={card.id}>
+              <Link to={`/${card.id}`} className='gallery__link'>
+                <CardContainer spec={cardSpec(card)}>
+                  <CardText card={card} />
+                </CardContainer>
+              </Link>
+            </li>
+          ))}
       </ul>
     </div>
   )

@@ -1,4 +1,4 @@
-import useIgnoreMountEffect from "./useIgnoreMountEffect"
+import useIgnoreMountEffect from './useIgnoreMountEffect'
 
 const useInMotion = (setHook, timeout, deps) => {
   useIgnoreMountEffect(() => {
