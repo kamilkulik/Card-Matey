@@ -44,7 +44,8 @@ PURPOSE: fetch data from IP
 how it works:
 1. it checks what's the currently value of the --card-font-size CSS property
 2. it calculates the right new font size based on desired font size on 13" laptop screen
-3. if the current font set is different from the new calculated font, the hook will update the CSS variable thus the font-size
+3. if the current font set is different from the new calculated font, the hook will update
+  the CSS variable thus the font-size
 
 arguments:
 targetFont - desired font size on 13" laptop

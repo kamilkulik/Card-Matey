@@ -9,8 +9,8 @@ const AppRouter = () => (
     <Navigation />
     <Switch>
       <Route exact path='/' component={CardGallery} />
-      <Route path='/add' children={<CardView key='new' />} />
-      <Route path='/:id' children={<CardView key='edit' />} />
+      <Route path='/add'><CardView key='new' /></Route>
+      <Route path='/:id'><CardView key='edit' /></Route>
     </Switch>
   </Router>
 )

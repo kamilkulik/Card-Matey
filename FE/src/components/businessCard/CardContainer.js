@@ -30,7 +30,10 @@ const CardContainer = ({
 }
 
 CardContainer.propTypes = {
-  size: PropTypes.number.isRequired,
+  size: PropTypes.shape({
+    height: PropTypes.number,
+    width: PropTypes.number,
+  }).isRequired,
   spec: PropTypes.shape({
     logo: PropTypes.string,
     theme: PropTypes.string,

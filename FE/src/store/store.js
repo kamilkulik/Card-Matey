@@ -11,12 +11,12 @@ const rootReducer = combineReducers({
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const store = () => {
-  const store = createStore(
+  const reduxStore = createStore(
     rootReducer,
     undefined,
     composeEnhancers(applyMiddleware(thunkMiddleware)),
   )
-  return store
+  return reduxStore
 }
 
 export default store

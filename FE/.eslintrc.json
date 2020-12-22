@@ -16,6 +16,8 @@
     "semi": ["warn", "never"],
     "quotes": ["warn", "single", { "avoidEscape": true }],
     "jsx-quotes": ["warn", "prefer-single"],
-    "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"] }]
+    "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"] }],
+    "jsx-a11y/click-events-have-key-events": ["warn"],
+    "radix": ["warn", "as-needed"]
   }
 }

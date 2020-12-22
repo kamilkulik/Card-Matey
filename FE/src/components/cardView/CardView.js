@@ -13,7 +13,7 @@ import Modal from '../modal/Modal'
 const CardView = () => {
   const { id } = useParams()
   const card = useSelector((state) => state.cards.find((savedCard) => savedCard.id === id))
-  const cardSpec = id && card.hasOwnProperty('cardSpec')
+  const cardSpec = id && Object.prototype.hasOwnProperty.call(card, 'cardSpec')
   const savedSpec = (cardSpec && card.cardSpec) || { logo: 'squares', theme: 'none' }
   const cleanDataObject = filterCardProps(card)
 
@@ -79,10 +79,10 @@ const CardView = () => {
       />
       <div className='cardView__preview'>
         <div className='cardView__preview-buttons'>
-          <button className='button' onClick={goBack}>
+          <button className='button' onClick={goBack} type='button'>
             &larr; Back
           </button>
-          <button className='button' onClick={handleEdit(!edit)}>
+          <button className='button' onClick={handleEdit(!edit)} type='button'>
             Edit
           </button>
         </div>
@@ -95,10 +95,10 @@ const CardView = () => {
       {edit && (
         <div className='cardView__theme'>
           <div className='cardView__theme-buttons'>
-            <button className='button' onClick={handleOnSubmit}>
+            <button className='button' onClick={handleOnSubmit} type='button'>
               Save
             </button>
-            <button className='button' onClick={() => setModalIsOpen(true)}>
+            <button className='button' onClick={() => setModalIsOpen(true)} type='button'>
               Delete Card
             </button>
           </div>
@@ -111,6 +111,9 @@ const CardView = () => {
                   key={singleColour.name}
                   onClick={() => handleSelect('colour', singleColour.name)}
                   className={colour === singleColour.name ? 'active' : null}
+                  role='button'
+                  aria-label={singleColour.name}
+                  tabIndex='0'
                 />
               ))}
           </div>

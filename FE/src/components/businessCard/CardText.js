@@ -41,8 +41,14 @@ const CardText = ({ card }) => {
   )
 }
 
+function isCorrectCard(propValue, key, componentName) {
+  if (!['string', 'object'].includes(typeof propValue[key])) {
+    return new Error(`invalid prop object key ${propValue[key]} passed to ${componentName}`)
+  } return 'no errors'
+}
+
 CardText.propTypes = {
-  card: PropTypes.objectOf(PropTypes.object()).isRequired,
+  card: PropTypes.objectOf(isCorrectCard).isRequired,
 }
 
 export default CardText
