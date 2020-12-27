@@ -9,21 +9,21 @@ import { startSetCards } from './actions/cardActions'
 
 const store = configureStore()
 
+const cachedThemes = []
+
 const jsx = (
   <Provider store={store}>
     <React.StrictMode>
-      <App />
+      <App cachedThemes={cachedThemes} />
     </React.StrictMode>
   </Provider>
 )
-const cachedThemes = []
 
 let hasRendered = false
 const renderApp = () => {
   if (!hasRendered) {
     ReactDOM.render(jsx, document.getElementById('root'))
     hasRendered = true
-    console.log(cachedThemes)
   }
 }
 
@@ -41,5 +41,3 @@ Promise.all([setCards, setThemes])
   //   history.push('/gallery')
   // }
   })
-
-export default cachedThemes

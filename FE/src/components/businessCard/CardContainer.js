@@ -1,6 +1,7 @@
 import React from 'react'
 import sizeMe from 'react-sizeme'
 import PropTypes from 'prop-types'
+// import ThemeContext from '../../ThemeContext'
 import useDynamicFont from '../../hooks/useDynamicFont'
 import canvasLogos from '../canvas/CanvasLogos'
 import cardPatterns from './CardPatterns'
@@ -12,8 +13,9 @@ const CardContainer = ({
   spec: { logo: logoProp = 'squares', theme: themeProp = 'none', colour: colourProp = 'black' },
 }) => {
   useDynamicFont(12, width)
+  // const cachedThemes = useContext(theme)
 
-  const theme = cardPatterns(colourProp, width).find((pattern) => pattern.name === themeProp)
+  const theme = cardPatterns(colourProp).find((pattern) => pattern.name === themeProp)
     .pattern
   const drawFunction = canvasLogos.find((logo) => logo.name === logoProp).draw
 
