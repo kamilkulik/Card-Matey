@@ -1,6 +1,8 @@
 import { useEffect, useReducer } from 'react'
 import axios from 'axios'
 
+const cache = {}
+
 const initialState = { status: 'idle', data: '', error: null }
 
 function reducer(state, action) {
@@ -16,25 +18,32 @@ function reducer(state, action) {
   }
 }
 
-const useGetCard = (card) => {
+const useGetThemes = (url) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
   useEffect(() => {
+    if (!url) return
     dispatch({ type: 'FETCHING' })
-    axios
-      .get(`http://localhost:3700/cards${card ? `/${card}` : ''}`)
-      .then((res) => {
-        dispatch({ type: 'FETCHED', payload: res.data })
-      })
-      .catch((err) => {
-        dispatch({ type: 'FETCH_ERR', payload: err })
-      })
-  }, [card])
+    if (cache[url]) {
+      const data = cache[url]
+      dispatch({ type: 'FETCHED', payload: data })
+    } else {
+      axios
+        .get(url)
+        .then((res) => {
+          cache[url] = res.data
+          dispatch({ type: 'FETCHED', payload: res.data })
+        })
+        .catch((err) => {
+          dispatch({ type: 'FETCH_ERR', payload: err })
+        })
+    }
+  }, [])
 
   return { ...state }
 }
 
-export default useGetCard
+export default useGetThemes
 
 /*
 DOCUMENTATION
@@ -42,13 +51,7 @@ DOCUMENTATION
 PURPOSE: fetch data from IP
 
 how it works:
-1. it checks what's the currently value of the --card-font-size CSS property
-2. it calculates the right new font size based on desired font size on 13" laptop screen
-3. if the current font set is different from the new calculated font, the hook will update
-  the CSS variable thus the font-size
 
 arguments:
-targetFont - desired font size on 13" laptop
-componentWidth - width of rendered React Component
 
 */
