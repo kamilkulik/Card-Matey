@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import axios from 'axios'
 import './styles/main.scss'
 import { Provider } from 'react-redux'
+import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 import App from './App'
 import configureStore from './store/store'
 import { startSetCards } from './actions/cardActions'
@@ -18,6 +19,18 @@ const jsx = (
     </React.StrictMode>
   </Provider>
 )
+
+// const updateHandler = () => {
+//   if (window.confirm('Update available. Do you want to reload?')) {
+//     window.location.reload()
+//   }
+// }
+
+// serviceWorkerRegistration.register({
+//   onUpdate: updateHandler,
+// })
+
+serviceWorkerRegistration.register()
 
 let hasRendered = false
 const renderApp = () => {
