@@ -10,7 +10,7 @@ const App = ({ cachedThemes }) => (
 )
 
 App.propTypes = {
-  cachedThemes: PropTypes.objectOf(Object).isRequired,
+  cachedThemes: PropTypes.arrayOf(Array).isRequired,
 }
 
 export default App

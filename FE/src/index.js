@@ -29,15 +29,25 @@ const renderApp = () => {
 
 ReactDOM.render(<p>Application Loading...</p>, document.getElementById('root'))
 
-const setCards = store.dispatch(startSetCards())
-const setThemes = axios.get('http://localhost:3700/themes')
+const getAssets = () => {
+  const setCards = store.dispatch(startSetCards())
+  const setThemes = axios.get('http://localhost:3700/themes')
+  Promise.all([setCards, setThemes])
+    .then((values) => {
+      const themes = values[1].data
+      themes.forEach((theme) => cachedThemes.push(theme))
+      renderApp()
+    })
+    .catch((error) => {
+      let errorMessage
+      if (!error.response) {
+        // network error
+        errorMessage = 'Error: Network error'
+      } else {
+        errorMessage = error.response.data.message
+      }
+      ReactDOM.render(<p>{errorMessage}</p>, document.getElementById('root'))
+    })
+}
 
-Promise.all([setCards, setThemes])
-  .then((values) => {
-    const themes = values[1].data
-    themes.forEach((theme) => cachedThemes.push(theme))
-    renderApp()
-  // if (history.location.pathname === '/') {
-  //   history.push('/gallery')
-  // }
-  })
+getAssets()

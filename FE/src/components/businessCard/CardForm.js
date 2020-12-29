@@ -63,7 +63,7 @@ const CardForm = ({
 CardForm.propTypes = {
   id: PropTypes.string,
   edit: PropTypes.bool.isRequired,
-  formFields: PropTypes.objectOf(PropTypes.object).isRequired,
+  formFields: PropTypes.objectOf(PropTypes.string).isRequired,
   setFormFields: PropTypes.func.isRequired,
 }
 
