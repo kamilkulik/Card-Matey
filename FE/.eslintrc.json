@@ -18,6 +18,7 @@
     "jsx-quotes": ["warn", "prefer-single"],
     "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"] }],
     "jsx-a11y/click-events-have-key-events": ["warn"],
-    "radix": ["warn", "as-needed"]  
+    "radix": ["warn", "as-needed"],
+    "no-nested-ternary": ["warn", "never"]
   }
 }

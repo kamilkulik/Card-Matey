@@ -18,7 +18,7 @@ function reducer(state, action) {
   }
 }
 
-const useGetThemes = (url) => {
+const useGetData = (url) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const useGetThemes = (url) => {
   return { ...state }
 }
 
-export default useGetThemes
+export default useGetData
 
 /*
 DOCUMENTATION

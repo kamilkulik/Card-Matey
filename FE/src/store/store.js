@@ -3,9 +3,11 @@ import {
 } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import cardReducer from '../reducers/cardReducer'
+import loadingReducer from '../reducers/loadingReducer'
 
 const rootReducer = combineReducers({
   cards: cardReducer,
+  loading: loadingReducer,
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
