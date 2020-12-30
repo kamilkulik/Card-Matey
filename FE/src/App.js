@@ -28,7 +28,6 @@ const App = () => {
         } else {
           errorMessage = error.response.data.message
         }
-        // ReactDOM.render(<p>{errorMessage}</p>, document.getElementById('root'))
         dispatch(fetchErr(errorMessage))
       })
   }, [])
