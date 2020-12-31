@@ -88,7 +88,12 @@ const CardView = () => {
         </div>
         <div className='cardView__preview-container'>
           <CardContainer spec={{ logo, theme, colour }}>
-            <CardForm id={id} edit={edit} formFields={formFields} setFormFields={setFormFields} />
+            <CardForm
+              id={id}
+              edit={edit}
+              formFields={formFields}
+              setFormFields={setFormFields}
+            />
           </CardContainer>
         </div>
       </div>
