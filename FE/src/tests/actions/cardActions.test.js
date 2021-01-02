@@ -59,8 +59,13 @@ or writing a manual mock to override a module dependency.
 */
 
 describe('Card Actions. Asynchronous', () => {
+
+  let store
+  beforeEach(() => {
+    store = createMockStore({})
+  })
+  
   test('should add card to database and dispatch ADD_CARD action', async () => {
-    const store = createMockStore({})
     const card = cards[0]
     const mockData = {
       ...card,
@@ -69,13 +74,59 @@ describe('Card Actions. Asynchronous', () => {
         _seconds: 1651806515,
       }
     }
-    mockAxios.post.mockResolvedValue({ res: mockData })
-    
+    mockAxios.post.mockResolvedValue({ data: mockData, status: 200 })
     const expectedActions = [
-      { type: 'ADD_CARD', mockData }
+      { type: 'ADD_CARD', card: mockData }
     ]
     await store.dispatch(actions.startAddCard(card))
     expect(store.getActions()).toEqual(expectedActions)
     expect(mockAxios.post).toHaveBeenCalledTimes(1)
+  })
+
+  test('should get all cards from the database and dispatch SET_CARDS action', async () => {
+    mockAxios.get.mockResolvedValue({ data: cards })
+    const expectedActions = [
+      { type: 'SET_CARDS', cards }
+    ]
+    await store.dispatch(actions.startSetCards())
+    expect(store.getActions()).toEqual(expectedActions)
+    expect(mockAxios.get).toHaveBeenCalledTimes(1)
+  })
+
+  test('should update card in database and dispatch UPDATE_CARD action', async () => {
+    const card = cards[0]
+    const mockData = {
+      ...card,
+      timestamp: {
+        _nanoseconds: 5000000,
+        _seconds: 1651806515,
+      }
+    }
+    mockAxios.patch.mockResolvedValue({ data: mockData})
+    const expectedActions = [
+      { 
+        type: 'UPDATE_CARD', 
+        id: cards[0].id,
+        updates: mockData,
+      }
+    ]
+    await store.dispatch(actions.startUpdateCard(mockData))
+    expect(store.getActions()).toEqual(expectedActions)
+    expect(mockAxios.patch).toHaveBeenCalledTimes(1)
+  })
+
+  test('should delete card from database and dispatch DELETE_CARD action', async () => {
+    const card = cards[0]
+    const mockId = card.id
+    mockAxios.delete.mockResolvedValue({ data: { id: mockId }})
+    const expectedActions = [
+      { 
+        type: 'DELETE_CARD', 
+        id: mockId
+      }
+    ]
+    await store.dispatch(actions.startDeleteCard(mockId))
+    expect(store.getActions()).toEqual(expectedActions)
+    expect(mockAxios.delete).toHaveBeenCalledTimes(1)
   })
 })

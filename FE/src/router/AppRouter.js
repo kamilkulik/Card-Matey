@@ -9,14 +9,14 @@ const AppRouter = () => {
   const isLoading = useSelector((state) => state.loading).status
 
   return (
-  <Router>
-    <Navigation />
-    <Switch>
-      <Route exact path='/' component={CardGallery} />
-      <Route path='/add'>{isLoading === 'FETCHED' ? <CardView key='new' /> : <p>Assets laoding...</p>}</Route>
-      <Route path='/:id'>{isLoading === 'FETCHED' ? <CardView key='edit' /> : <p>Assets laoding...</p>}</Route>
-    </Switch>
-  </Router>
+    <Router>
+      <Navigation />
+      <Switch>
+        <Route exact path='/' component={CardGallery} />
+        <Route path='/add'>{isLoading === 'FETCHED' ? <CardView key='new' /> : <p>Assets laoding...</p>}</Route>
+        <Route path='/:id'>{isLoading === 'FETCHED' ? <CardView key='edit' /> : <p>Assets laoding...</p>}</Route>
+      </Switch>
+    </Router>
   )
 }
 
