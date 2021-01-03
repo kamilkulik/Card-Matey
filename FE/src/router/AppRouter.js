@@ -1,3 +1,5 @@
+/* eslint-disable no-nested-ternary */
+
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
@@ -6,23 +8,24 @@ import CardGallery from '../components/cardGallery/CardGallery'
 import CardView from '../components/cardView/CardView'
 
 const AppRouter = () => {
-  const isLoading = useSelector((state) => state.loading).status
+  const { status, error } = useSelector((state) => state.loading)
 
   return (
     <Router>
       <Navigation />
-      <Switch>
-        <Route exact path='/' component={CardGallery} />
-        <Route path='/add'>{isLoading === 'FETCHED' ? <CardView key='new' /> : <p>Assets laoding...</p>}</Route>
-        <Route path='/:id'>{isLoading === 'FETCHED' ? <CardView key='edit' /> : <p>Assets laoding...</p>}</Route>
-      </Switch>
+      {status === 'FETCHED'
+        ? (
+          <Switch>
+            <Route exact path='/' component={CardGallery} />
+            <Route path='/add'><CardView key='new' /></Route>
+            <Route path='/:id'><CardView key='edit' /></Route>
+          </Switch>
+        )
+        : status === 'FETCH_ERR'
+          ? <p>{error}</p>
+          : <p>Assets are loading, please wait...</p>}
     </Router>
   )
 }
 
 export default AppRouter
-
-// review exisiting card
-// editing existing card
-// create new card
-// delete card

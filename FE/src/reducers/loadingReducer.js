@@ -7,7 +7,7 @@ export default function loadingReducer(state = initialState, action) {
     case ('FETCHED'):
       return { ...state, status: action.status }
     case ('FETCH_ERR'):
-      return { ...state, error: action.error }
+      return { ...state, status: action.status, error: action.error }
     default:
       return state
   }

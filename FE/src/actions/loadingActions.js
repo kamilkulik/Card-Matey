@@ -15,6 +15,7 @@ export function fetched() {
 export function fetchErr(error) {
   return {
     type: 'FETCH_ERR',
+    status: 'FETCH_ERR',
     error,
   }
 }
