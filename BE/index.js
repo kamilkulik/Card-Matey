@@ -24,6 +24,8 @@ app.use((req, res, next) => {
   next()
 })
 
+// app.use('logic to auth user')
+
 app.use('/', router)
 
 app.listen(config.port, () => {
