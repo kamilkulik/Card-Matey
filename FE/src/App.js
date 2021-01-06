@@ -5,13 +5,10 @@ import { fetching, fetched, fetchErr } from './actions/loadingActions'
 import AppRouter from './router/AppRouter'
 import ThemeContext from './ThemeContext'
 import { startSetCards } from './actions/cardActions'
-import useGoogleLogin from './hooks/useGoogleLogin'
 
 const App = () => {
   const dispatch = useDispatch()
   const [cachedThemes, setCachedThemes] = React.useState([])
-
-  useGoogleLogin()
 
   React.useEffect(() => {
     dispatch(fetching())
