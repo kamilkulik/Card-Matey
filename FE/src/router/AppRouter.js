@@ -6,8 +6,6 @@ import LoginPage from '../components/login/LoginPage'
 import CardGallery from '../components/cardGallery/CardGallery'
 import CardView from '../components/cardView/CardView'
 import NotFoundPage from '../components/notFoundPage/NotFoundPage'
-// import history from './history'
-// import Navigation from '../components/navigation/Navigation'
 
 const AppRouter = () => (
   <Router>
