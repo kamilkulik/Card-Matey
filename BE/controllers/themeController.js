@@ -1,4 +1,3 @@
-// const { firestore } = require('firebase-admin')
 const database = require('../config/database')
 
 const db = database.getDb()

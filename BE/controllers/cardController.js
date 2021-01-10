@@ -4,35 +4,24 @@ const database = require('../config/database')
 const db = database.getDb()
 const docRef = db.collection('cards')
 
-/**
-
-snapshot.doc.data() - accesses the document object
-
-**/
-
 exports.createCard = async function (req, res, next) {
-  // AUTH const userId = req.user.id
-  // const docName = req.body.cardName // name of the document that will be put in collection
-  // const cardAttributes = Object.entries(req.body).filter((el) => el[0] !== 'cardName')
-  // const cardAttributesObject = Object.fromEntries(cardAttributes)
-
-  // allow setting empty documents
+  const userId = req.uid
   const date = new Date()
   const document = await docRef.add({
-    // .add() method adds to collection a document whose name is a unique ID
     timestamp: firestore.Timestamp.fromDate(date),
     ...req.body,
+    userId,
   })
   const snapshot = await document.get()
   const data = snapshot.data()
   const id = snapshot.id
-  // AUTH res.status(200).json({ ...data, id, userId })
   res.status(200).json({ ...data, id })
 }
 
 exports.readCards = async function (req, res, next) {
-  // const { user: { id } } = req
-  const snapshot = await docRef.get()
+  const { uid } = req
+  const snapshot = await docRef.where('userId', '==', uid).get()
+
   const data = snapshot.docs.map((doc) => {
     const id = doc.id
     const data = doc.data()
@@ -72,8 +61,6 @@ exports.updateCard = async function (req, res, next) {
     id,
   })
 }
-
-// add ability to delete a field on the document or just use update endpoint to update all fields on the document
 
 exports.deleteCard = async function (req, res, next) {
   const { id, doc } = getId(req)
