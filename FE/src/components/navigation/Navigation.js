@@ -14,7 +14,7 @@ const Navigation = () => {
     <>
       <ul className='navigation'>
         <li>
-          <Link to='/dashboard'>Home</Link>
+          <Link to='/'>Home</Link>
         </li>
         <li>
           <Link to='/add'>Create Card</Link>

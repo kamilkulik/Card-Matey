@@ -13,7 +13,7 @@ const PublicRoute = ({ children, ...rest }) => {
       {...rest}
       render={() => (
         isAuthenticated ? (
-          <Redirect to='/dashboard' />
+          <Redirect to='/' />
         ) : (
           children
         )

@@ -24,7 +24,7 @@ const CardGallery = () => {
         { (cardData.length > 0
             && cardData.map((card) => (
               <li key={card.id}>
-                <Link to={`/${card.id}`} className='gallery__link'>
+                <Link to={`/edit/${card.id}`} className='gallery__link'>
                   <CardContainer spec={cardSpec(card)}>
                     <CardText card={card} />
                   </CardContainer>
