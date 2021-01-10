@@ -5,13 +5,11 @@ const db = database.getDb()
 const docRef = db.collection('cards')
 
 /**
-
 snapshot.doc.data() - accesses the document object
-
 **/
 
 exports.createCard = async function (req, res, next) {
-  // AUTH const userId = req.user.id
+  const userId = req.user.uid
   // const docName = req.body.cardName // name of the document that will be put in collection
   // const cardAttributes = Object.entries(req.body).filter((el) => el[0] !== 'cardName')
   // const cardAttributesObject = Object.fromEntries(cardAttributes)
@@ -22,6 +20,7 @@ exports.createCard = async function (req, res, next) {
     // .add() method adds to collection a document whose name is a unique ID
     timestamp: firestore.Timestamp.fromDate(date),
     ...req.body,
+    userId,
   })
   const snapshot = await document.get()
   const data = snapshot.data()
@@ -31,8 +30,10 @@ exports.createCard = async function (req, res, next) {
 }
 
 exports.readCards = async function (req, res, next) {
-  // const { user: { id } } = req
+  // console.log(req.user.uid)
+  // const { user: { uid: userId } } = req
   const snapshot = await docRef.get()
+
   const data = snapshot.docs.map((doc) => {
     const id = doc.id
     const data = doc.data()
