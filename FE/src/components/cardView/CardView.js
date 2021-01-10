@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+import history from '../../router/history'
 import { startDeleteCard, startUpdateCard, startAddCard } from '../../actions/cardActions'
 import filterCardProps from '../../utilities/filterCardProps'
 import CardContainer from '../businessCard/CardContainer'
@@ -36,11 +37,10 @@ const CardView = () => {
   const [edit, setEdit] = useState(false)
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
-  const history = useHistory()
   const dispatch = useDispatch()
 
   const goBack = () => {
-    history.goBack()
+    history.back()
   }
 
   const handleEdit = (bool) => () => {
