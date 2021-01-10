@@ -19,24 +19,22 @@ const ModalThing = ({ modalIsOpen, setModalIsOpen, handleDelete }) => {
   }
 
   return (
-    <div>
-      <Modal
-        ariaHideApp={false}
-        isOpen={modalIsOpen}
-        // onAfterOpen={afterOpenModal}
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel='Example Modal'
-      >
-        <h1>Are you sure you want to delete this card?</h1>
-        <button className='button' onClick={handleDelete(true)} style={{ marginRight: '2rem' }} type='button'>
-          Delete
-        </button>
-        <button className='button' onClick={handleDelete(false)} type='button'>
-          Cancel
-        </button>
-      </Modal>
-    </div>
+    <Modal
+      ariaHideApp={false}
+      isOpen={modalIsOpen}
+      // onAfterOpen={afterOpenModal}
+      onRequestClose={closeModal}
+      style={customStyles}
+      contentLabel='Example Modal'
+    >
+      <h1>Are you sure you want to delete this card?</h1>
+      <button className='button' onClick={handleDelete(true)} style={{ marginRight: '2rem' }} type='button'>
+        Delete
+      </button>
+      <button className='button' onClick={handleDelete(false)} type='button'>
+        Cancel
+      </button>
+    </Modal>
   )
 }
 

@@ -104,7 +104,7 @@ const CardView = () => {
           enter: 500,
           exit: 5000,
         }}
-        classNames="errorFloat"
+        classNames="editSlide"
         unmountOnExit
       >
         <div className='cardView__theme'>

@@ -84,20 +84,38 @@
 ////////////  ANIMATION  /////////////
 //////////////////////////////////////
 
-.errorFloat-enter {
+.editSlide-enter {
   opacity: 1;
   transform: translateX(40vw);
 }
-.errorFloat-enter-active {
+.editSlide-enter-active {
   opacity: 1;
   transform: translateX(0rem);
   transition: opacity 500ms, transform 500ms ease;
 }
-.errorFloat-exit {
+.editSlide-exit {
   opacity: 1;
 }
-.errorFloat-exit-active {
+.editSlide-exit-active {
   opacity: 0;
   transform: translateX(40vw);
   transition: transform 500ms, opacity 500ms ease;
+}
+
+.appearEffect-enter {
+  opacity: 0;
+  transform: translateY(3rem);
+}
+.appearEffect-enter-active {
+  opacity: 1;
+  transform: translateY(0rem);
+  transition: opacity 500ms, transform 500ms ease;
+}
+.appearEffect-exit {
+  opacity: 1;
+}
+.appearEffect-exit-active {
+  opacity: 0;
+  transform: translateY(3rem);
+  transition: transform 500ms, opacity 400ms ease;
 }

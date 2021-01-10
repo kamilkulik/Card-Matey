@@ -19,8 +19,10 @@ const Navigation = () => {
         <li>
           <Link to='/add'>Create Card</Link>
         </li>
+        <li>
+          <button type='button' onClick={logout}>Logout</button>
+        </li>
       </ul>
-      <button type='button' onClick={logout}>Logout</button>
     </>
   )
 }
