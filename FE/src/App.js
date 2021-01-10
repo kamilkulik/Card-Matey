@@ -16,9 +16,10 @@ const App = () => {
   const assetsLoaded = useSelector((state) => state.loading.status === 'FETCHED')
 
   React.useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
+    firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
-        // console.log(user.getAuthResponse().id_token)
+        const idToken = await firebase.auth().currentUser.getIdToken(true)
+        axios.defaults.headers.common.Authorization = idToken
         dispatch(fetching())
         const themes = axios.get('http://localhost:3700/themes')
         const userId = dispatch(login(user.uid))

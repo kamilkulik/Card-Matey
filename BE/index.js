@@ -6,6 +6,7 @@ const passport = require('passport')
 const app = express()
 const bodyParser = require('body-parser')
 const router = require('./routes/router')
+const validateIdToken = require('./middleware/validateIdToken')
 
 // Takes the raw requests and turns them into usable properties on req.body
 app.use(bodyParser.json())
@@ -27,7 +28,7 @@ app.use((req, res, next) => {
   next()
 })
 
-// app.use('logic to auth user')
+app.use(validateIdToken)
 
 app.use('/', router)
 
