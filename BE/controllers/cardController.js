@@ -30,7 +30,7 @@ exports.createCard = async function (req, res, next) {
 }
 
 exports.readCards = async function (req, res, next) {
-  // console.log(req.user.uid)
+  console.log(req.uid)
   // const { user: { uid: userId } } = req
   const snapshot = await docRef.get()
 

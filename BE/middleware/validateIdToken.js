@@ -1,6 +1,6 @@
 const admin = require('firebase-admin')
 
-const validateIdToken = (req,res, next) => {
+const validateIdToken = (req, res, next) => {
   if ('authorization' in req.headers) {
     const idToken = req.headers.authorization
     admin
@@ -8,16 +8,15 @@ const validateIdToken = (req,res, next) => {
       .verifyIdToken(idToken)
       .then((decodedToken) => {
         const uid = decodedToken.uid
-        req.user.uid = uid
+        req.uid = uid
         next()
       })
       .catch((error) => {
         res.status(error.status || 500)
       })
   } else {
-    res.status(401).send('Only for authorise users')
+    res.status(401).send('for authorised users only')
   }
-  next()
 }
 
 module.exports = validateIdToken
