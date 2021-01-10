@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+import { CSSTransition } from 'react-transition-group'
 import { startDeleteCard, startUpdateCard, startAddCard } from '../../actions/cardActions'
 import filterCardProps from '../../utilities/filterCardProps'
 import CardContainer from '../businessCard/CardContainer'
@@ -97,7 +98,15 @@ const CardView = () => {
           </CardContainer>
         </div>
       </div>
-      {edit && (
+      <CSSTransition
+        in={edit}
+        timeout={{
+          enter: 500,
+          exit: 5000,
+        }}
+        classNames="errorFloat"
+        unmountOnExit
+      >
         <div className='cardView__theme'>
           <div className='cardView__theme-buttons'>
             <button className='button' onClick={handleOnSubmit} type='button'>
@@ -126,7 +135,7 @@ const CardView = () => {
           <h1>Select your logo</h1>
           <LogoPreview savedLogo={logo} handleSelect={handleSelect} />
         </div>
-      )}
+      </CSSTransition>
     </div>
   )
 }

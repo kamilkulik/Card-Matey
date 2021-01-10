@@ -79,3 +79,25 @@
     }
   }
 }
+
+//////////////////////////////////////
+////////////  ANIMATION  /////////////
+//////////////////////////////////////
+
+.errorFloat-enter {
+  opacity: 1;
+  transform: translateX(40vw);
+}
+.errorFloat-enter-active {
+  opacity: 1;
+  transform: translateX(0rem);
+  transition: opacity 500ms, transform 500ms ease;
+}
+.errorFloat-exit {
+  opacity: 1;
+}
+.errorFloat-exit-active {
+  opacity: 0;
+  transform: translateX(40vw);
+  transition: transform 500ms, opacity 500ms ease;
+}
