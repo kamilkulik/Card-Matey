@@ -19,6 +19,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
     "react-sizeme": "^2.6.12",
+    "react-spinners": "^0.10.4",
     "react-textfit": "^1.1.0",
     "react-transition-group": "^4.4.1",
     "redux": "^4.0.5",
