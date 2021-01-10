@@ -12,7 +12,7 @@ import LoginPage from './components/login/LoginPage'
 const App = () => {
   const dispatch = useDispatch()
   const [cachedThemes, setCachedThemes] = React.useState([])
-  const isAuthenticated = useSelector((state) => state.auth.uid)
+  // const isAuthenticated = useSelector((state) => state.auth.uid)
   const assetsLoaded = useSelector((state) => state.loading.status === 'FETCHED')
 
   React.useEffect(() => {
@@ -46,7 +46,7 @@ const App = () => {
 
   return (
     <ThemeContext.Provider value={cachedThemes}>
-      {isAuthenticated && assetsLoaded ? <AppRouter /> : <LoginPage />}
+      {assetsLoaded ? <AppRouter /> : <LoginPage />}
     </ThemeContext.Provider>
   )
 }
