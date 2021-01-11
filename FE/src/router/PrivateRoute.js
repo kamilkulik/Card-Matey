@@ -10,6 +10,7 @@ import Spinner from '../components/spinner/spinner'
 const PrivateRoute = ({ children, ...rest }) => {
   const isAuthenticated = useSelector((state) => state.auth.uid)
   const assetsLoaded = useSelector((state) => state.loading.status === 'FETCHED')
+  const fetchError = useSelector((state) => state.loading)
 
   return (
     <Route
@@ -20,7 +21,9 @@ const PrivateRoute = ({ children, ...rest }) => {
             <Navigation />
             {assetsLoaded
               ? children
-              : <Spinner />
+              : fetchError.status === 'FETCH_ERR'
+                ? <p>{fetchError.error}</p>
+                : <Spinner />
             }
           </>
         ) : (
