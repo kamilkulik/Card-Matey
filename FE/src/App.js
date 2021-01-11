@@ -1,22 +1,16 @@
-/* eslint-disable no-nested-ternary */
-
 import React from 'react'
 import axios from 'axios'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import firebase from './firebase/firebase'
 import { login, logout } from './actions/authActions'
 import { startSetCards } from './actions/cardActions'
 import { fetching, fetched, fetchErr } from './actions/loadingActions'
 import AppRouter from './router/AppRouter'
 import ThemeContext from './ThemeContext'
-import Spinner from './components/spinner/spinner'
-// import LoginPage from './components/login/LoginPage'
 
 const App = () => {
   const dispatch = useDispatch()
   const [cachedThemes, setCachedThemes] = React.useState([])
-  const isAuthenticated = useSelector((state) => state.auth.uid)
-  const assetsLoaded = useSelector((state) => state.loading.status === 'FETCHED')
 
   React.useEffect(() => {
     firebase.auth().onAuthStateChanged(async (user) => {
@@ -50,11 +44,7 @@ const App = () => {
 
   return (
     <ThemeContext.Provider value={cachedThemes}>
-      {!assetsLoaded && !isAuthenticated
-        ? <AppRouter />
-        : assetsLoaded
-          ? <AppRouter />
-          : <Spinner />}
+      <AppRouter />
     </ThemeContext.Provider>
   )
 }

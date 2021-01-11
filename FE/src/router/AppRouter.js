@@ -8,6 +8,7 @@ import CardView from '../components/cardView/CardView'
 import NotFoundPage from '../components/notFoundPage/NotFoundPage'
 
 const AppRouter = () => (
+
   <Router>
     <Switch>
       <PublicRoute path='/login'><LoginPage /></PublicRoute>

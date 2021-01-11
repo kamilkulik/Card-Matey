@@ -12,8 +12,8 @@ const LoginPage = () => {
   return (
     <div className='login-page'>
       <div className='bg-video'>
-        <video className="bg-video__content" autoPlay muted loop>
-          <source src={video} type="video/mp4" alt='Video by Edmond Dantès from Pexels' />
+        <video className='bg-video__content' autoPlay muted loop>
+          <source src={video} type='video/mp4' alt='Video by Edmond Dantès from Pexels' />
           Video by Edmond Dantès from Pexels. Your browser is not supported!
         </video>
       </div>

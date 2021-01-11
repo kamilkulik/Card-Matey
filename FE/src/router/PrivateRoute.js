@@ -5,9 +5,11 @@ import { useSelector } from 'react-redux'
 import { Route, Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Navigation from '../components/navigation/Navigation'
+import Spinner from '../components/spinner/spinner'
 
 const PrivateRoute = ({ children, ...rest }) => {
   const isAuthenticated = useSelector((state) => state.auth.uid)
+  const assetsLoaded = useSelector((state) => state.loading.status === 'FETCHED')
 
   return (
     <Route
@@ -16,7 +18,10 @@ const PrivateRoute = ({ children, ...rest }) => {
         isAuthenticated ? (
           <>
             <Navigation />
-            {children}
+            {assetsLoaded
+              ? children
+              : <Spinner />
+            }
           </>
         ) : (
           <Redirect to={{
