@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './styles/main.scss'
 import { Provider } from 'react-redux'
-// import * as serviceWorkerRegistration from './serviceWorkerRegistration'
+import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 import App from './App'
 import configureStore from './store/store'
 
@@ -16,6 +16,6 @@ const jsx = (
   </Provider>
 )
 
-// serviceWorkerRegistration.register()
+serviceWorkerRegistration.register()
 
 ReactDOM.render(jsx, document.getElementById('root'))
