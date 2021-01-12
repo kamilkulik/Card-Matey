@@ -5,6 +5,7 @@ import thunkMiddleware from 'redux-thunk'
 import cardReducer from '../reducers/cardReducer'
 import loadingReducer from '../reducers/loadingReducer'
 import authReducer from '../reducers/authReducer'
+import { loadState } from './localStorage'
 
 const rootReducer = combineReducers({
   cards: cardReducer,
@@ -12,12 +13,13 @@ const rootReducer = combineReducers({
   auth: authReducer,
 })
 
+const persistedState = loadState()
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const store = () => {
   const reduxStore = createStore(
     rootReducer,
-    undefined,
+    persistedState,
     composeEnhancers(applyMiddleware(thunkMiddleware)),
   )
   return reduxStore

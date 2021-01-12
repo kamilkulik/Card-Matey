@@ -5,8 +5,14 @@ import { Provider } from 'react-redux'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 import App from './App'
 import configureStore from './store/store'
+import { saveState } from './store/localStorage'
 
 const store = configureStore()
+store.subscribe(() => {
+  saveState({
+    auth: store.getState().auth,
+  })
+})
 
 const jsx = (
   <Provider store={store}>
