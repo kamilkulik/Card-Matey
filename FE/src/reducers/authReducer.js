@@ -3,7 +3,7 @@ export default (state = {}, action) => {
     case 'LOGIN':
       return {
         uid: action.uid,
-        timestamp: new Date().toISOString(),
+        timestamp: Date.now(),
       }
     case 'LOGOUT':
       return {}

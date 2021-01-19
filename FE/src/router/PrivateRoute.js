@@ -6,32 +6,36 @@ import { Route, Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Navigation from '../components/navigation/Navigation'
 import Spinner from '../components/spinner/spinner'
+import useVerifyTimestamp from '../hooks/useVerifyTimestamp'
 
 const PrivateRoute = ({ children, ...rest }) => {
-  const isAuthenticated = useSelector((state) => state.auth.uid)
+  const isAuthenticated = useSelector((state) => state.auth)
   const assetsLoaded = useSelector((state) => state.loading.status === 'FETCHED')
   const fetchError = useSelector((state) => state.loading)
+  const { valid: authTimestampValid } = useVerifyTimestamp()
 
   return (
     <Route
       {...rest}
       render={({ location }) => (
-        isAuthenticated ? (
-          <>
-            <Navigation />
-            {assetsLoaded
-              ? children
-              : fetchError.status === 'FETCH_ERR'
-                ? <p>{fetchError.error}</p>
-                : <Spinner />
-            }
-          </>
-        ) : (
-          <Redirect to={{
-            pathname: '/login',
-            state: { from: location }
-          }}/>
-        )
+        isAuthenticated.uid && authTimestampValid
+        ? (
+            <>
+              <Navigation />
+              {assetsLoaded
+                ? children
+                : fetchError.status === 'FETCH_ERR'
+                  ? <p>{fetchError.error}</p>
+                  : <Spinner />
+              }
+            </>
+          ) 
+        : (
+            <Redirect to={{
+              pathname: '/login',
+              state: { from: location }
+            }}/>
+          )
       )}
     />
   )
