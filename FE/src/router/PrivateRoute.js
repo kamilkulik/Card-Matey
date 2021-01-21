@@ -13,7 +13,6 @@ const PrivateRoute = ({ children, ...rest }) => {
   const assetsLoaded = useSelector((state) => state.loading.status === 'FETCHED')
   const fetchError = useSelector((state) => state.loading)
   const authTimestampValid = useVerifyTimestamp()
-  console.log(authTimestampValid) 
 
   return (
     <Route

@@ -4,6 +4,7 @@ import getTime from 'date-fns/getTime'
 import isValid from 'date-fns/isValid'
 
 export const checkTimestampAge = (stamp) => {
+  if (!isValid(stamp)) return false
   const now = getTime(Date.now())
   const interval = now - getTime(stamp)
   const allowedUidAge = 0.1 * 60000 // minutes * miliseconds
