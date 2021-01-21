@@ -1,27 +1,25 @@
-/* eslint-disable */
-
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import getTime from 'date-fns/getTime'
 import isValid from 'date-fns/isValid'
 
+export const checkTimestampAge = (stamp) => {
+  const now = getTime(Date.now())
+  const interval = now - getTime(stamp)
+  const allowedUidAge = 0.1 * 60000 // minutes * miliseconds
+  return interval < allowedUidAge
+}
+
 const useVerifyTimestamp = () => {
-  const [valid, setValid] = useState(false)
   const authTimestamp = useSelector((state) => state.auth?.timestamp)
+  const [valid, setValid] = useState(checkTimestampAge(authTimestamp))
 
   useEffect(() => {
     if (isValid(authTimestamp)) {
-      const now = getTime(Date.now())
-      const interval = now - getTime(authTimestamp)
-      const allowedUidAge = 20 * 60000 // minutes * miliseconds
-      if (interval < allowedUidAge) { 
-        // console.log('hello!')
-        setValid(true)
-        console.log(valid)
-      }
+      if (checkTimestampAge(authTimestamp)) setValid(true)
     }
   }, [authTimestamp])
-  console.log(valid)
+
   return valid
 }
 
