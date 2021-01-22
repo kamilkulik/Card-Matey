@@ -8,6 +8,8 @@ export default function loadingReducer(state = initialState, action) {
       return { ...state, status: action.status }
     case ('FETCH_ERR'):
       return { ...state, status: action.status, error: action.error }
+    case 'LOGOUT':
+      return initialState
     default:
       return state
   }

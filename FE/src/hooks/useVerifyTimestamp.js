@@ -7,7 +7,7 @@ export const checkTimestampAge = (stamp) => {
   if (!isValid(stamp)) return false
   const now = getTime(Date.now())
   const interval = now - getTime(stamp)
-  const allowedUidAge = 0.1 * 60000 // minutes * miliseconds
+  const allowedUidAge = 20 * 60000 // minutes * miliseconds
   return interval < allowedUidAge
 }
 
@@ -20,7 +20,6 @@ const useVerifyTimestamp = () => {
       if (checkTimestampAge(authTimestamp)) setValid(true)
     }
   }, [authTimestamp])
-
   return valid
 }
 

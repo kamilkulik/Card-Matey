@@ -1,9 +1,9 @@
-import { checkTimestampAge } from '../hooks/useVerifyTimestamp'
+// import { checkTimestampAge } from '../hooks/useVerifyTimestamp'
 
-const refreshTimestamp = (oldTimestamp) => {
-  if (checkTimestampAge(oldTimestamp) || !oldTimestamp) return Date.now()
-  return oldTimestamp
-}
+// const refreshTimestamp = (oldTimestamp) => {
+//   if (checkTimestampAge(oldTimestamp) || !oldTimestamp) return Date.now()
+//   return oldTimestamp
+// }
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -11,7 +11,7 @@ export default (state = {}, action) => {
       return {
         ...state,
         uid: action.uid,
-        timestamp: refreshTimestamp(state.timestamp),
+        timestamp: Date.now(),
       }
     case 'LOGOUT':
       return {}
