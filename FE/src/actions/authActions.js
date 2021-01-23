@@ -2,6 +2,10 @@
 
 import firebase, { googleAuthProvider } from '../firebase/firebase'
 
+export const refreshToken = () => ({
+  type: 'REFRESH_TOKEN',
+})
+
 export const login = (uid) => ({
   type: 'LOGIN',
   uid,

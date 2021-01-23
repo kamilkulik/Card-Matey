@@ -39,7 +39,7 @@ const App = () => {
           })
       }
     })
-  }, [auth.uid])
+  }, [auth.timestamp])
 
   return (
     <ThemeContext.Provider value={cachedThemes}>
