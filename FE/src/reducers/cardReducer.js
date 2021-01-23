@@ -18,6 +18,8 @@ export default function cardReducer(state = initialState, action) {
       })
     case 'DELETE_CARD':
       return state.filter(({ id }) => id !== action.id)
+    case 'LOGOUT':
+      return initialState
     default:
       return state
   }

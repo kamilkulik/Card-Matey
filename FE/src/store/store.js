@@ -1,3 +1,5 @@
+/* eslint-disable no-mixed-operators */
+
 import {
   createStore, combineReducers, compose, applyMiddleware,
 } from 'redux'
@@ -14,7 +16,8 @@ const rootReducer = combineReducers({
 })
 
 const persistedState = loadState()
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true, traceLimit: 25 }) || compose
 
 const store = () => {
   const reduxStore = createStore(

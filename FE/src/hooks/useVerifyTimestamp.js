@@ -20,7 +20,6 @@ const useVerifyTimestamp = () => {
       if (checkTimestampAge(authTimestamp)) setValid(true)
     }
   }, [authTimestamp])
-
   return valid
 }
 
