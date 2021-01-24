@@ -5,7 +5,7 @@ const Spinner = () => (
   <div className='spinner-wrapper'>
     <ClipLoader
       color='indigo'
-      size='50'
+      size='50px'
     />
   </div>
 )

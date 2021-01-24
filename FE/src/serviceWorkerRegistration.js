@@ -21,8 +21,10 @@ const isLocalhost = Boolean(
 );
 
 export function register(config) {
-  if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+  if ('serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
+    // in new URL, if first argument is relative path, the second needs to be the base
+    // here PUBLIC_URL will take us to the public/index.html file & window.location.href will give us the path from which this code runs
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
     if (publicUrl.origin !== window.location.origin) {
       // Our service worker won't work if PUBLIC_URL is on a different origin
@@ -55,15 +57,15 @@ export function register(config) {
 }
 
 function registerValidSW(swUrl, config) {
-  navigator.serviceWorker
+  navigator.serviceWorker // returns the ServiceWorkerContainer object
     .register(swUrl)
-    .then((registration) => {
-      registration.onupdatefound = () => {
-        const installingWorker = registration.installing;
+    .then((registration) => { // registration = ServiceWorkerRegistration interface
+      registration.onupdatefound = () => { // onupdatefound = EventListener property called whenever an event of type updatefound is fired. Fired every time ServiceWorkerRegistration.installing propery aquires a new service worker
+        const installingWorker = registration.installing; // returns a service worker whose state is installing. This is initially set to null
         if (installingWorker == null) {
           return;
         }
-        installingWorker.onstatechange = () => {
+        installingWorker.onstatechange = () => { // onstatechange = an eventListener property called whenever an event of type statechange is fired. It is basically fired anytime the SericeWorker.state changes
           if (installingWorker.state === 'installed') {
             if (navigator.serviceWorker.controller) {
               // At this point, the updated precached content has been fetched,
