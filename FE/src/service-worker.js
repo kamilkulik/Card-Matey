@@ -12,6 +12,7 @@ import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
+import { CacheableResponsePlugin } from 'workbox-cacheable-response'
 
 clientsClaim() // Claim any currently available clients once the service worker becomes active
 
@@ -50,7 +51,7 @@ registerRoute(
 // precache, in this case same-origin .png requests like those from in public/
 registerRoute(
   // Add in any other file extensions or routing criteria as needed.
-  ({ url }) => url.origin === self.location.origin && url.pathname.endsWith('.png'), // Customize this strategy as needed, e.g., by changing to CacheFirst.
+  ({ url }) => url.origin === self.location.origin && url.pathname.endsWith('.svg'), // Customize this strategy as needed, e.g., by changing to CacheFirst.
   new StaleWhileRevalidate({
     cacheName: 'images',
     plugins: [
@@ -59,7 +60,8 @@ registerRoute(
       new ExpirationPlugin({ maxEntries: 50 }),
     ],
   })
-);
+)
+
 
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
@@ -67,6 +69,43 @@ self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }
-});
+})
 
 // Any other custom service worker logic can go here.
+
+////////////////////////////////////////////////
+////// STALE - WHILE - REVALIDATE PATTERN //////
+////////////////////////////////////////////////
+
+
+const cacheName = 'themes';
+const matchCallback = ({ url }) => {
+  // url.origin = http://localhost:5000
+  // self.location.origin = http://localhost:5000
+  return url.origin === self.location.origin && url.pathname.endsWith('/themes')
+}
+
+registerRoute(
+  matchCallback,
+  new StaleWhileRevalidate({
+    cacheName,
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+    ],
+  }),
+);
+
+// const matchCb = ({ url }) => {
+//   return (url.pathname === '/themes')
+// }
+
+// const handerCb = async ({ url, request }) => {
+//   const response = await fetch(request)
+//   const reponseBody = await response.
+// }
+
+////////////////////////////////////////////////
+////// STALE - WHILE - REVALIDATE PATTERN //////
+////////////////////////////////////////////////

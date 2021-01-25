@@ -7,7 +7,6 @@ const Canvas = ({ draw }) => {
   useEffect(() => {
     // get DPI
     const dpi = window.devicePixelRatio
-    console.log(dpi)
     // get canvas
     const canvas = canvasRef.current
     // get context

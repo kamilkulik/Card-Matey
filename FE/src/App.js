@@ -4,7 +4,6 @@ import React from 'react'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import firebase from './firebase/firebase'
-// import { logout } from './actions/authActions'
 import { startSetCards } from './actions/cardActions'
 import { fetching, fetched, fetchErr } from './actions/loadingActions'
 import AppRouter from './router/AppRouter'
@@ -16,22 +15,7 @@ const App = () => {
   const auth = useSelector((state) => state.auth)
   const [cachedThemes, setCachedThemes] = React.useState([])
 
-  firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
-  .then(() => {
-    // Existing and future Auth states are now persisted in the current
-    // session only. Closing the window would clear any existing state even
-    // if a user forgets to sign out.
-    // ...
-    // New sign-in will be persisted with session persistence.
-    return firebase.auth().signInWithEmailAndPassword(email, password);
-  })
-  .catch((error) => {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-  });
-
-  React.useEffect(() => {
+  React.useEffect(async () => {
     firebase.auth().onAuthStateChanged(async (user) => {
       if (user && checkTimestampAge(auth.timestamp)) {
         const idToken = await firebase.auth().currentUser.getIdToken(true)
