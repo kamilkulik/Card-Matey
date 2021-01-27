@@ -1,29 +1,26 @@
 /* eslint-disable */
 
-// This optional code is used to register a service worker.
-// register() is not called by default.
-
-// This lets the app load faster on subsequent visits in production, and gives
-// it offline capabilities. However, it also means that developers (and users)
-// will only see deployed updates on subsequent visits to a page, after all the
-// existing tabs open on the page have been closed, since previously cached
-// resources are updated in the background.
-
-// To learn more about the benefits of this model and instructions on how to
-// opt-in, read https://cra.link/PWA
-
+/****** CHECKING IF SCRIPT IS LOADED ON LOCALHOST ******/
 const isLocalhost = Boolean(
+  // The Window.location read-only property returns a Location object with information about the current location of the document.
   window.location.hostname === 'localhost' ||
+    // any Device connected to the Internet needs a numerical IP address to communicate between other devices. It is provided by IPv4 or IP6
+    // The name localhost normally resolves to the IPv4 loopback address 127.0.0.1, and to the IPv6 loopback address ::1
     // [::1] is the IPv6 localhost address.
     window.location.hostname === '[::1]' ||
     // 127.0.0.0/8 are considered localhost for IPv4.
     window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
 );
 
+/****** CHECKS BEFORE ACTUALLY REGISTERING SERVICE WORKER ******/
+
 export function register(config) {
+  // code inside runs only in PRODUCTION & when browser supports service workers
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
-    const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
+    // in new URL, if first argument is relative path, the second needs to be the base
+    // here PUBLIC_URL will take us to the public/index.html file & window.location.href will give us the path from which this code runs
+    const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href) // new URL(url [, base]) = new URL("/", "http://localhost:3000/")
     if (publicUrl.origin !== window.location.origin) {
       // Our service worker won't work if PUBLIC_URL is on a different origin
       // from what our page is served on. This might happen if a CDN is used to
@@ -31,8 +28,8 @@ export function register(config) {
       return;
     }
 
-    window.addEventListener('load', () => {
-      const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
+    window.addEventListener('load', () => { // The load event is fired when the whole page has loaded, including all dependent resources such as stylesheets and images
+      const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`; // referencing public folder by using PUBLIC_URL environment variable
 
       if (isLocalhost) {
         // This is running on localhost. Let's check if a service worker still exists or not.
@@ -43,7 +40,8 @@ export function register(config) {
         navigator.serviceWorker.ready.then(() => {
           console.log(
             'This web app is being served cache-first by a service ' +
-              'worker. To learn more, visit https://cra.link/PWA'
+              'worker, on localhost. Check the register function if ' +
+              'this is intended behaviour'
           );
         });
       } else {
@@ -54,16 +52,18 @@ export function register(config) {
   }
 }
 
+/****** REGISTERING & INSTALLING SERVICE WORKER ******/
+
 function registerValidSW(swUrl, config) {
-  navigator.serviceWorker
+  navigator.serviceWorker // returns the ServiceWorkerContainer object
     .register(swUrl)
-    .then((registration) => {
-      registration.onupdatefound = () => {
-        const installingWorker = registration.installing;
+    .then((registration) => { // registration = ServiceWorkerRegistration interface
+      registration.onupdatefound = () => { // onupdatefound = EventListener property called whenever an event of type updatefound is fired. Fired every time ServiceWorkerRegistration.installing propery aquires a new service worker
+        const installingWorker = registration.installing; // returns a service worker whose state is installing. This is initially set to null
         if (installingWorker == null) {
           return;
         }
-        installingWorker.onstatechange = () => {
+        installingWorker.onstatechange = () => { // onstatechange = an eventListener property called whenever an event of type statechange is fired. It is basically fired anytime the SericeWorker.state changes
           if (installingWorker.state === 'installed') {
             if (navigator.serviceWorker.controller) {
               // At this point, the updated precached content has been fetched,
@@ -97,6 +97,8 @@ function registerValidSW(swUrl, config) {
       console.error('Error during service worker registration:', error);
     });
 }
+
+/****** UTILITY FUNCTION THAT CANVERIFY IF VALID SERVICE WORKER EXISTS ******/
 
 function checkValidServiceWorker(swUrl, config) {
   // Check if the service worker can be found. If it can't reload the page.

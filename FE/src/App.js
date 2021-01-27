@@ -1,8 +1,9 @@
+/* eslint-disable */
+
 import React from 'react'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import firebase from './firebase/firebase'
-// import { logout } from './actions/authActions'
 import { startSetCards } from './actions/cardActions'
 import { fetching, fetched, fetchErr } from './actions/loadingActions'
 import AppRouter from './router/AppRouter'
@@ -14,7 +15,7 @@ const App = () => {
   const auth = useSelector((state) => state.auth)
   const [cachedThemes, setCachedThemes] = React.useState([])
 
-  React.useEffect(() => {
+  React.useEffect(async () => {
     firebase.auth().onAuthStateChanged(async (user) => {
       if (user && checkTimestampAge(auth.timestamp)) {
         const idToken = await firebase.auth().currentUser.getIdToken(true)

@@ -28,7 +28,7 @@ const Canvas = ({ draw }) => {
     const {
       canvas: { clientWidth: width },
     } = context
-    const magicNumber = width / 55
+    const magicNumber = width / (100 / dpi)
     draw(context, magicNumber)
   }, [draw])
 

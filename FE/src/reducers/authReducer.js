@@ -8,11 +8,11 @@ export default (state = {}, action) => {
       }
     case 'LOGOUT':
       return {}
-    case 'REFRESH_TOKEN':
-      return {
-        ...state,
-        timestamp: Date.now(),
-      }
+    // case 'REFRESH_TOKEN':
+    //   return {
+    //     ...state,
+    //     timestamp: Date.now(),
+    //   }
     default:
       return state
   }
