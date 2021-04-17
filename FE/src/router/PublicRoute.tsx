@@ -1,13 +1,17 @@
 /* eslint-disable */
 
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { Route, Redirect } from 'react-router-dom'
+import { useTypedSelector } from '../hooks/useTypedSelector'
+import { Route, Redirect, RouteProps } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import useVerifyTimestamp from '../hooks/useVerifyTimestamp'
 
-const PublicRoute = ({ children, ...rest }) => {
-  const isAuthenticated = useSelector((state) => state.auth.uid)
+interface PublicRouteProps extends RouteProps{
+  children: React.ReactNode;
+}
+
+const PublicRoute: React.FC<PublicRouteProps> = ({ children, ...rest }) => {
+  const isAuthenticated = useTypedSelector((state) => state.auth.uid)
   const authTimestampValid = useVerifyTimestamp()
 
   return (

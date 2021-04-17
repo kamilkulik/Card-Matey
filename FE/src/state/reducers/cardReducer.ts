@@ -1,5 +1,6 @@
 import { AuthActionType, CardActionType } from '../actionTypes';
-import { AuthAction, Card, CardAction } from '../actions';
+import { AuthAction, CardAction } from '../actions';
+import { Card } from '../../shared';
 
 const initialState: Card[] = [];
 

@@ -1,10 +1,5 @@
 import { CardActionType } from '../actionTypes';
-
-export interface Card {
-  id: string;
-  name?: string;
-  email?: string;
-}
+import { Card } from '../../shared';
 
 export type Updates = Omit<Card, 'id'>;
 

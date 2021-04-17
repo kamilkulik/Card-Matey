@@ -1,5 +1,4 @@
-import React from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import PublicRoute from './PublicRoute'
 import PrivateRoute from './PrivateRoute'
 import LoginPage from '../components/login/LoginPage'
@@ -9,7 +8,7 @@ import NotFoundPage from '../components/notFoundPage/NotFoundPage'
 
 const AppRouter = () => (
 
-  <Router>
+  <BrowserRouter>
     <Switch>
       <PublicRoute path='/login'><LoginPage /></PublicRoute>
       <PrivateRoute exact path='/'><CardGallery /></PrivateRoute>
@@ -17,7 +16,7 @@ const AppRouter = () => (
       <PrivateRoute path='/edit/:id'><CardView key='edit' /></PrivateRoute>
       <Route path='*'><NotFoundPage /></Route>
     </Switch>
-  </Router>
+  </BrowserRouter>
 )
 
 export default AppRouter
