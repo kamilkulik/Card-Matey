@@ -1,5 +1,11 @@
-import { createContext } from 'react'
+import React, { createContext } from 'react';
+import { Theme } from './shared/interfaces';
 
-const ThemeContext = createContext()
+const ThemeContext: React.Context<Theme[]> = createContext([
+  {
+    name: 'none',
+    pattern: 'none',
+  },
+]);
 
-export default ThemeContext
+export default ThemeContext;

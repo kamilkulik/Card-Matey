@@ -1,17 +1,12 @@
 import { AuthAction } from '../actions';
 import { AuthActionType } from '../actionTypes';
 
-interface AuthActionState {
+interface AuthState {
   uid?: string;
   timestamp?: number;
 }
 
-const defaultState = {
-  uid: null,
-  timestamp: null,
-};
-
-export default (state: AuthActionState = {}, action: AuthAction): AuthActionState => {
+export default (state: AuthState = {}, action: AuthAction): AuthState => {
   switch (action.type) {
     case AuthActionType.LOGIN:
       return {

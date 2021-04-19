@@ -1,11 +1,9 @@
 import { CardActionType } from '../actionTypes';
-import { Card } from '../../shared';
-
-export type Updates = Omit<Card, 'id'>;
+import { Card, Updates } from '../../shared';
 
 export interface AddCardAction {
   type: CardActionType.ADD_CARD;
-  cards: Card[];
+  cards: Card;
 }
 export interface SetCardsAction {
   type: CardActionType.SET_CARDS;
@@ -14,10 +12,7 @@ export interface SetCardsAction {
 export interface UpdateCardAction {
   type: CardActionType.UPDATE_CARD;
   id: string;
-  updates: {
-    name?: string;
-    email?: string;
-  };
+  updates: Updates;
 }
 export interface DeleteCardAction {
   type: CardActionType.DELETE_CARD;

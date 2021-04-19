@@ -4,7 +4,9 @@ import { Card } from '../../shared';
 
 const initialState: Card[] = [];
 
-export default function cardReducer(state = initialState, action: CardAction | AuthAction) {
+type CardState = Card[];
+
+export default function cardReducer(state: CardState = initialState, action: CardAction | AuthAction): CardState {
   switch (action.type) {
     case CardActionType.ADD_CARD:
       return [...state, action.cards];

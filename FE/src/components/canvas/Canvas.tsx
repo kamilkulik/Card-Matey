@@ -1,16 +1,18 @@
 import React, { useRef, useEffect } from 'react'
-import PropTypes from 'prop-types'
+import { CanvasLogo } from '../../shared'
 
-const Canvas = ({ draw }) => {
-  const canvasRef = useRef(null)
+type Draw = CanvasLogo["draw"]
+
+const Canvas = ({ draw } : { draw: Draw}) => {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null)
 
   useEffect(() => {
     // get DPI
     const dpi = window.devicePixelRatio
     // get canvas
-    const canvas = canvasRef.current
+    const canvas = canvasRef.current as HTMLCanvasElement
     // get context
-    const context = canvas.getContext('2d')
+    const context = canvas.getContext('2d') as CanvasRenderingContext2D
     const fixDpi = () => {
       // get CSS height
       // the + prefix casts it to an integer
@@ -19,8 +21,8 @@ const Canvas = ({ draw }) => {
       // get CSS width
       const styleWidth = +getComputedStyle(canvas).getPropertyValue('width').slice(0, -2)
       // scale the canvas
-      canvas.setAttribute('height', styleHeight * dpi)
-      canvas.setAttribute('width', styleWidth * dpi)
+      canvas.setAttribute('height', String(styleHeight * dpi))
+      canvas.setAttribute('width', String(styleWidth * dpi))
     }
 
     fixDpi()
@@ -33,10 +35,6 @@ const Canvas = ({ draw }) => {
   }, [draw])
 
   return <canvas ref={canvasRef} height={100} width={100} className='canvas' />
-}
-
-Canvas.propTypes = {
-  draw: PropTypes.func.isRequired,
 }
 
 export default Canvas

@@ -29,8 +29,4 @@ const PublicRoute: React.FC<PublicRouteProps> = ({ children, ...rest }) => {
   )
 }
 
-PublicRoute.propTypes = {
-  children: PropTypes.element,
-}
-
 export default PublicRoute

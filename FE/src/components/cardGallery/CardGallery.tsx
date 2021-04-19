@@ -1,15 +1,16 @@
 /* eslint-disable */
+import { Card } from '../../shared'
 
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useTypedSelector } from '../../hooks/useTypedSelector'
 import { Link } from 'react-router-dom'
 import CardContainer from '../businessCard/CardContainer'
 import CardText from '../businessCard/CardText'
 
 const CardGallery = () => {
-  const cardData = useSelector((state) => state.cards)
+  const cardData = useTypedSelector((state) => state.cards)
 
-  const cardSpec = (card) => {
+  const cardSpec = (card: Card) => {
     if ('cardSpec' in card) return card.cardSpec
     return {
       logo: 'squares',

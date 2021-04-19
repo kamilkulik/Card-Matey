@@ -1,24 +1,32 @@
 import React from 'react'
 import sizeMe from 'react-sizeme'
-import PropTypes from 'prop-types'
 import ThemeContext from '../../ThemeContext'
 import useDynamicFont from '../../hooks/useDynamicFont'
 import canvasLogos from '../canvas/CanvasLogos'
 import Canvas from '../canvas/Canvas'
+import { CardSpec, Theme } from '../../shared/interfaces'
 
-const CardContainer = ({
+interface CardContainerProps {
+  size: {
+    width: number;
+  };
+  children: React.ReactNode;
+  spec: CardSpec
+}
+
+const CardContainer: React.FC<CardContainerProps> = ({
   size: { width },
   children,
   spec: { logo: logoProp = 'squares', theme: themeProp = 'none', colour: colourProp = 'black' },
 }) => {
   useDynamicFont(12, width)
-  const cachedThemes = React.useContext(ThemeContext)
-  const colourLessTheme = cachedThemes.find(((pattern) => pattern.name === themeProp)).pattern
+  const cachedThemes: Theme[] = React.useContext(ThemeContext)
+  const colourLessTheme = cachedThemes.find(((pattern) => pattern.name === themeProp))!.pattern
   const theme = colourLessTheme.replace('black', colourProp)
 
   const style = { backgroundImage: theme }
 
-  const drawFunction = canvasLogos.find((logo) => logo.name === logoProp).draw
+  const drawFunction = canvasLogos.find((logo) => logo.name === logoProp)!.draw
 
   return (
     <div className='presentation' style={style}>
@@ -30,19 +38,6 @@ const CardContainer = ({
       </div>
     </div>
   )
-}
-
-CardContainer.propTypes = {
-  size: PropTypes.shape({
-    height: PropTypes.number,
-    width: PropTypes.number,
-  }).isRequired,
-  spec: PropTypes.shape({
-    logo: PropTypes.string,
-    theme: PropTypes.string,
-    colour: PropTypes.string,
-  }).isRequired,
-  children: PropTypes.element.isRequired,
 }
 
 export default sizeMe()(CardContainer)

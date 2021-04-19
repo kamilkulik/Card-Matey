@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import authReducer from './authReducer';
-import cardReducer from './authReducer';
+import cardReducer from './cardReducer';
 import loadingReducer from './loadingReducer';
 
 const reducers = combineReducers({

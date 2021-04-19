@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
-import { Card, Updates, AddCardAction, SetCardsAction, UpdateCardAction, DeleteCardAction } from '../actions';
+import { AddCardAction, SetCardsAction, UpdateCardAction, DeleteCardAction } from '../actions';
+import { Card, Updates } from '../../shared';
 import { CardActionType } from '../actionTypes';
 
 // CREATE
 
-export function addCard(cards: Card[]): AddCardAction {
+export function addCard(cards: Card): AddCardAction {
   return {
     type: CardActionType.ADD_CARD,
     cards,

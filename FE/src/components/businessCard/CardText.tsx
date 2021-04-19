@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useTypedSelector } from '../../hooks/useTypedSelector'
 import { useParams } from 'react-router-dom'
-import PropTypes from 'prop-types'
 import filterCardData from '../../utilities/filterCardProps'
+import { Card } from '../../shared'
 
-const CardText = ({ card }) => {
+interface CardTextProps {
+  card: Card
+}
+
+const CardText: React.FC<CardTextProps> = ({ card }) => {
   const initialState = {
     firstName: '',
     lastName: '',
@@ -13,10 +17,10 @@ const CardText = ({ card }) => {
     website: '',
   }
   const [formFields, setFormFields] = useState(initialState)
-  const { id } = useParams()
-  const reduxData = useSelector((state) => state.cards.find((savedCard) => savedCard.id === id))
+  const { id } = useParams<{ id: string }>()
+  const reduxData = useTypedSelector((state) => state.cards.find((savedCard) => savedCard.id === id)) as Card
 
-  let cardData
+  let cardData: Card
   if (!id) cardData = card
   else cardData = reduxData
 
@@ -39,16 +43,6 @@ const CardText = ({ card }) => {
       {formFields.website}
     </p>
   )
-}
-
-function isCorrectCard(propValue, key, componentName) {
-  if (!['string', 'object'].includes(typeof propValue[key])) {
-    return new Error(`invalid prop object key ${propValue[key]} passed to ${componentName}`)
-  } return 'no errors'
-}
-
-CardText.propTypes = {
-  card: PropTypes.objectOf(isCorrectCard).isRequired,
 }
 
 export default CardText

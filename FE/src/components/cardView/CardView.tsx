@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useTypedSelector } from '../../hooks/useTypedSelector'
+import { Card } from '../../shared'
 import { CSSTransition } from 'react-transition-group';
-import { startDeleteCard, startUpdateCard, startAddCard } from '../../state/actions/cardActions';
+import { startDeleteCard, startUpdateCard, startAddCard } from '../../state/actionCreators';
 import filterCardProps from '../../utilities/filterCardProps';
 import CardContainer from '../businessCard/CardContainer';
 import CardForm from '../businessCard/CardForm';
@@ -12,10 +14,10 @@ import LogoPreview from '../previewBox/LogoPreview';
 import Modal from '../modal/Modal';
 
 const CardView = () => {
-  const { id } = useParams();
-  const card = useSelector((state) => state.cards.find((savedCard) => savedCard.id === id));
+  const { id } = useParams<{ id: string}>();
+  const card = useTypedSelector((state) => state.cards.find((savedCard) => savedCard.id === id)) as Card;
   const cardSpec = id && Object.prototype.hasOwnProperty.call(card, 'cardSpec');
-  const savedSpec = (cardSpec && card.cardSpec) || { logo: 'squares', theme: 'none' };
+  const savedSpec = (cardSpec && card?.cardSpec) || { logo: 'squares', theme: 'none', colour: 'Black'};
   const cleanDataObject = filterCardProps(card);
 
   const initialState = {
@@ -27,7 +29,7 @@ const CardView = () => {
     ...cleanDataObject,
   };
   const [formFields, setFormFields] = useState(initialState);
-  const [cardSpecState, setCardSpecState] = useState({
+  const [cardSpecState, setCardSpecState] = useState<{ logo: string, theme:string, colour: string }>({
     logo: savedSpec.logo || 'squares',
     theme: savedSpec.theme || 'none',
     colour: savedSpec.colour || 'Black',

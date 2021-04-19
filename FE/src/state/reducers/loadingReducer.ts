@@ -1,14 +1,14 @@
 import { FetchAction, AuthAction } from '../actions';
 import { FetchActionType, AuthActionType } from '../actionTypes';
 
-interface FetchDefaultState {
+interface FetchState {
   status: string;
   error?: string;
 }
 
-const initialState: FetchDefaultState = { status: 'IDLE' };
+const initialState: FetchState = { status: 'IDLE' };
 
-export default function loadingReducer(state = initialState, action: FetchAction | AuthAction) {
+export default function loadingReducer(state: FetchState = initialState, action: FetchAction | AuthAction): FetchState {
   switch (action.type) {
     case FetchActionType.FETCHING:
       return { ...state, status: action.status };
