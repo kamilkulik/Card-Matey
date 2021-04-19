@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../hooks/useTypedSelector'
-import { Card } from '../../shared'
 import { CSSTransition } from 'react-transition-group';
-import { startDeleteCard, startUpdateCard, startAddCard } from '../../state/actionCreators';
+import { useActions } from '../../hooks/useActions';
+// import { startDeleteCard, startUpdateCard, startAddCard } from '../../state/actionCreators';
 import filterCardProps from '../../utilities/filterCardProps';
 import CardContainer from '../businessCard/CardContainer';
 import CardForm from '../businessCard/CardForm';
@@ -12,6 +11,7 @@ import { colours } from '../businessCard/CardPatterns';
 import ThemePreview from '../previewBox/ThemePreview';
 import LogoPreview from '../previewBox/LogoPreview';
 import Modal from '../modal/Modal';
+import { Card, CardSpec, FormFields, Updates } from '../../shared';
 
 const CardView = () => {
   const { id } = useParams<{ id: string}>();
@@ -28,7 +28,7 @@ const CardView = () => {
     website: 'Website',
     ...cleanDataObject,
   };
-  const [formFields, setFormFields] = useState(initialState);
+  const [formFields, setFormFields] = useState<FormFields>(initialState);
   const [cardSpecState, setCardSpecState] = useState<{ logo: string, theme:string, colour: string }>({
     logo: savedSpec.logo || 'squares',
     theme: savedSpec.theme || 'none',
@@ -36,39 +36,39 @@ const CardView = () => {
   });
   const { logo, theme, colour } = cardSpecState;
 
-  const [edit, setEdit] = useState(false);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [edit, setEdit] = useState<boolean>(false);
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
-  const dispatch = useDispatch();
+  const { startDeleteCard, startUpdateCard, startAddCard } = useActions()
   const history = useHistory();
 
   const goBack = () => {
-    history.goBack();
+    history.back();
   };
 
-  const handleEdit = (bool) => () => {
+  const handleEdit = (bool: boolean) => () => {
     setEdit(bool);
   };
 
   const handleOnSubmit = () => {
-    const updates = { ...formFields, cardSpec: { logo, theme, colour } };
+    const updates: Card = { ...formFields, cardSpec: { logo, theme, colour } };
     // add validation so you don't add the same card twice
     if (!id) {
-      dispatch(startAddCard(updates));
+      startAddCard(updates);
       setEdit(false);
     } else {
-      dispatch(startUpdateCard(updates, id));
+      startUpdateCard(updates, id);
       setEdit(false);
     }
   };
 
-  const handleSelect = (name, value) => {
+  const handleSelect = (name: string, value: string) => {
     setCardSpecState({ ...cardSpecState, [name]: value });
   };
 
-  const handleDelete = (response) => () => {
+  const handleDelete = (response: boolean) => () => {
     if (response) {
-      dispatch(startDeleteCard(id));
+      startDeleteCard(id);
       history.push('/');
     } else setModalIsOpen(false);
   };
@@ -117,10 +117,10 @@ const CardView = () => {
                   style={{ backgroundColor: singleColour.name }}
                   key={singleColour.name}
                   onClick={() => handleSelect('colour', singleColour.name)}
-                  className={colour === singleColour.name ? 'active' : null}
+                  className={colour === singleColour.name ? 'active' : undefined}
                   role="button"
                   aria-label={singleColour.name}
-                  tabIndex="0"
+                  tabIndex={0}
                 />
               ))}
           </div>

@@ -5,13 +5,13 @@ export interface CanvasLogo {
 
 export interface Card {
   cardSpec: CardSpec;
-  id: string;
+  id?: string;
   email?: string;
   firstName?: string;
   lastName?: string;
   mobile?: string;
   timestamp?: Date;
-  userId: string;
+  userId?: string;
   website?: string;
 }
 

@@ -1,13 +1,12 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { startLogout } from '../../state/actions/authActions';
+import { useActions } from '../../hooks/useActions';
 
-const Navigation = () => {
-  const dispatch = useDispatch();
+const Navigation: React.FC = () => {
+  const {startLogout} = useActions()
 
   const logout = () => {
-    dispatch(startLogout());
+    startLogout();
   };
 
   return (

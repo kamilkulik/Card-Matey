@@ -1,19 +1,18 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { startLogin } from '../../state/actions/authActions';
-import video from './production ID_4435753.mp4';
+import { useActions } from '../../hooks/useActions'
+const video = require('./production_ID_4435753.mp4');
 
-const LoginPage = () => {
-  const dispatch = useDispatch();
+const LoginPage: React.FC = () => {
+  const { startLogin } = useActions()
 
   const login = () => {
-    dispatch(startLogin());
+    startLogin();
   };
   return (
     <div className="login-page">
       <div className="bg-video">
-        <video className="bg-video__content" autoPlay muted loop>
-          <source src={video} type="video/mp4" alt="Video by Edmond Dantès from Pexels" />
+        <video className="bg-video__content" autoPlay muted loop aria-describedby="Video by Edmond Dantès from Pexels">
+          <source src={video} type="video/mp4" />
           Video by Edmond Dantès from Pexels. Your browser is not supported!
         </video>
       </div>

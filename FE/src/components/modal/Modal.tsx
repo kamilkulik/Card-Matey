@@ -13,7 +13,13 @@ const customStyles = {
   },
 }
 
-const ModalThing = ({ modalIsOpen, setModalIsOpen, handleDelete }) => {
+interface ModalThingProps {
+  modalIsOpen: boolean;
+  setModalIsOpen(T: boolean): void;
+  handleDelete(T: boolean): void;
+}
+
+const ModalThing: React.FC<ModalThingProps> = ({ modalIsOpen, setModalIsOpen, handleDelete }) => {
   const closeModal = () => {
     setModalIsOpen(false)
   }
@@ -28,10 +34,10 @@ const ModalThing = ({ modalIsOpen, setModalIsOpen, handleDelete }) => {
       contentLabel='Example Modal'
     >
       <h1>Are you sure you want to delete this card?</h1>
-      <button className='button' onClick={handleDelete(true)} style={{ marginRight: '2rem' }} type='button'>
+      <button className='button' onClick={() => handleDelete(true)} style={{ marginRight: '2rem' }} type='button'>
         Delete
       </button>
-      <button className='button' onClick={handleDelete(false)} type='button'>
+      <button className='button' onClick={() => handleDelete(false)} type='button'>
         Cancel
       </button>
     </Modal>
