@@ -4,7 +4,7 @@ const useDynamicFont = (targetFont: number, componentWidth: number) => {
   useEffect(() => {
     if (!componentWidth) return;
     const root = document.documentElement;
-    const currentFontSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--card-font-size'));
+    const currentFontSize = Number.parseInt(getComputedStyle(document.documentElement).getPropertyValue('--card-font-size'), 10);
 
     const magicNumber = targetFont / 317;
     const newFontSize = Math.round(componentWidth * magicNumber);

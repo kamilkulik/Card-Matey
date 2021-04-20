@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useTypedSelector } from './useTypedSelector';
 import getTime from 'date-fns/getTime';
 import isValid from 'date-fns/isValid';
+import { useTypedSelector } from './useTypedSelector';
 
 export const checkTimestampAge = (stamp: number) => {
   if (!isValid(stamp)) return false;

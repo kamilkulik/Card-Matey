@@ -1,5 +1,7 @@
-const mockAxios = jest.createMockFromModule('axios')
+import axios from 'axios';
 
-mockAxios.create = jest.fn(() => mockAxios)
+const mockAxios = jest.createMockFromModule('axios') as jest.Mocked<typeof axios>;
 
-export default mockAxios
+mockAxios.create = jest.fn(() => mockAxios);
+
+export default mockAxios;

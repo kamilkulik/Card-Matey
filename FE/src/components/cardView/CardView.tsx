@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { useTypedSelector } from '../../hooks/useTypedSelector'
 import { CSSTransition } from 'react-transition-group';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useActions } from '../../hooks/useActions';
 // import { startDeleteCard, startUpdateCard, startAddCard } from '../../state/actionCreators';
 import filterCardProps from '../../utilities/filterCardProps';
@@ -11,13 +11,17 @@ import { colours } from '../businessCard/CardPatterns';
 import ThemePreview from '../previewBox/ThemePreview';
 import LogoPreview from '../previewBox/LogoPreview';
 import Modal from '../modal/Modal';
-import { Card, CardSpec, FormFields, Updates } from '../../shared';
+import { Card, FormFields } from '../../shared';
 
 const CardView = () => {
-  const { id } = useParams<{ id: string}>();
+  const { id } = useParams<{ id: string }>();
   const card = useTypedSelector((state) => state.cards.find((savedCard) => savedCard.id === id)) as Card;
   const cardSpec = id && Object.prototype.hasOwnProperty.call(card, 'cardSpec');
-  const savedSpec = (cardSpec && card?.cardSpec) || { logo: 'squares', theme: 'none', colour: 'Black'};
+  const savedSpec = (cardSpec && card?.cardSpec) || {
+    logo: 'squares',
+    theme: 'none',
+    colour: 'Black',
+  };
   const cleanDataObject = filterCardProps(card);
 
   const initialState = {
@@ -29,7 +33,11 @@ const CardView = () => {
     ...cleanDataObject,
   };
   const [formFields, setFormFields] = useState<FormFields>(initialState);
-  const [cardSpecState, setCardSpecState] = useState<{ logo: string, theme:string, colour: string }>({
+  const [cardSpecState, setCardSpecState] = useState<{
+    logo: string;
+    theme: string;
+    colour: string;
+  }>({
     logo: savedSpec.logo || 'squares',
     theme: savedSpec.theme || 'none',
     colour: savedSpec.colour || 'Black',
@@ -39,11 +47,11 @@ const CardView = () => {
   const [edit, setEdit] = useState<boolean>(false);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
-  const { startDeleteCard, startUpdateCard, startAddCard } = useActions()
+  const { startDeleteCard, startUpdateCard, startAddCard } = useActions();
   const history = useHistory();
 
   const goBack = () => {
-    history.back();
+    history.push('/');
   };
 
   const handleEdit = (bool: boolean) => () => {

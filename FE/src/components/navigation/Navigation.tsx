@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useActions } from '../../hooks/useActions';
 
 const Navigation: React.FC = () => {
-  const {startLogout} = useActions()
+  const { startLogout } = useActions();
 
   const logout = () => {
     startLogout();

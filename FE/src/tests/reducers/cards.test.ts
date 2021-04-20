@@ -1,19 +1,13 @@
 import cardReducer from '../../state/reducers/cardReducer';
 import cards from '../fixtures/cards';
-
-// DEFAULT STATE
-
-describe('REDUCER - correctly initiates state', () => {
-  test('should set default state', () => {
-    const state = cardReducer(undefined, { type: '@@INIT' });
-    expect(state).toEqual([]);
-  });
-});
+import { CardActionType } from '../../state/actionTypes';
+import { CardAction } from '../../state/actions';
+import { Card } from '../../shared';
 
 describe('REDUCER - SET_CARDS functionality', () => {
   test('should set cards as new state', () => {
-    const action = {
-      type: 'SET_CARDS',
+    const action: CardAction = {
+      type: CardActionType.SET_CARDS,
       cards,
     };
     const state = cardReducer([], action);
@@ -25,8 +19,8 @@ describe('REDUCER - SET_CARDS functionality', () => {
 
 describe('REDUCER - DELETE_CARD functionality', () => {
   test('should remove card by ID', () => {
-    const action = {
-      type: 'DELETE_CARD',
+    const action: CardAction = {
+      type: CardActionType.DELETE_CARD,
       id: cards[1].id,
     };
     const state = cardReducer(cards, action);
@@ -34,8 +28,8 @@ describe('REDUCER - DELETE_CARD functionality', () => {
   });
 
   test('should not remove card if ID not found', () => {
-    const action = {
-      type: 'DELETE_CARD',
+    const action: CardAction = {
+      type: CardActionType.DELETE_CARD,
       id: 'cards',
     };
     const state = cardReducer(cards, action);
@@ -47,9 +41,13 @@ describe('REDUCER - DELETE_CARD functionality', () => {
 
 describe('REDUCER - UPDATE_CARD functionality', () => {
   test('should update card by ID', () => {
-    const updates = { firstName: 'Cindy', lastName: 'Crawford', cardSpec: { colour: 'Crimson', logo: 'squares', theme: 'diagonal lines' } };
-    const action = {
-      type: 'UPDATE_CARD',
+    const updates = {
+      firstName: 'Cindy',
+      lastName: 'Crawford',
+      cardSpec: { colour: 'Crimson', logo: 'squares', theme: 'diagonal lines' },
+    };
+    const action: CardAction = {
+      type: CardActionType.UPDATE_CARD,
       id: cards[1].id,
       updates,
     };
@@ -63,7 +61,7 @@ describe('REDUCER - UPDATE_CARD functionality', () => {
 
 describe('REDUCER - ADD_CARD functionality', () => {
   test('should add a new card with correct fields', () => {
-    const newCard = {
+    const newCard: Card = {
       firstName: 'Michael',
       lastName: 'Jordan',
       mobile: '+1 124 123 122',
@@ -75,9 +73,9 @@ describe('REDUCER - ADD_CARD functionality', () => {
         theme: 'winning',
       },
     };
-    const action = {
-      type: 'ADD_CARD',
-      card: newCard,
+    const action: CardAction = {
+      type: CardActionType.ADD_CARD,
+      cards: newCard,
     };
     const state = cardReducer([], action);
     expect(state).toEqual([newCard]);

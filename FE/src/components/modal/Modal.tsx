@@ -1,6 +1,6 @@
-import React from 'react'
-import Modal from 'react-modal'
-import PropTypes from 'prop-types'
+import React from 'react';
+import Modal from 'react-modal';
+import PropTypes from 'prop-types';
 
 const customStyles = {
   content: {
@@ -11,7 +11,7 @@ const customStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
   },
-}
+};
 
 interface ModalThingProps {
   modalIsOpen: boolean;
@@ -21,8 +21,8 @@ interface ModalThingProps {
 
 const ModalThing: React.FC<ModalThingProps> = ({ modalIsOpen, setModalIsOpen, handleDelete }) => {
   const closeModal = () => {
-    setModalIsOpen(false)
-  }
+    setModalIsOpen(false);
+  };
 
   return (
     <Modal
@@ -31,23 +31,23 @@ const ModalThing: React.FC<ModalThingProps> = ({ modalIsOpen, setModalIsOpen, ha
       // onAfterOpen={afterOpenModal}
       onRequestClose={closeModal}
       style={customStyles}
-      contentLabel='Example Modal'
+      contentLabel="Example Modal"
     >
       <h1>Are you sure you want to delete this card?</h1>
-      <button className='button' onClick={() => handleDelete(true)} style={{ marginRight: '2rem' }} type='button'>
+      <button className="button" onClick={() => handleDelete(true)} style={{ marginRight: '2rem' }} type="button">
         Delete
       </button>
-      <button className='button' onClick={() => handleDelete(false)} type='button'>
+      <button className="button" onClick={() => handleDelete(false)} type="button">
         Cancel
       </button>
     </Modal>
-  )
-}
+  );
+};
 
 ModalThing.propTypes = {
   modalIsOpen: PropTypes.bool.isRequired,
   setModalIsOpen: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
-}
+};
 
-export default ModalThing
+export default ModalThing;

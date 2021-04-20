@@ -14,13 +14,13 @@ const isLocalhost = Boolean(
 
 /****** CHECKS BEFORE ACTUALLY REGISTERING SERVICE WORKER ******/
 
-export function register(config) {
+export function register(config?) {
   // code inside runs only in PRODUCTION & when browser supports service workers
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
     // in new URL, if first argument is relative path, the second needs to be the base
     // here PUBLIC_URL will take us to the public/index.html file & window.location.href will give us the path from which this code runs
-    const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href) // new URL(url [, base]) = new URL("/", "http://localhost:3000/")
+    const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href); // new URL(url [, base]) = new URL("/", "http://localhost:3000/")
     if (publicUrl.origin !== window.location.origin) {
       // Our service worker won't work if PUBLIC_URL is on a different origin
       // from what our page is served on. This might happen if a CDN is used to
@@ -28,7 +28,8 @@ export function register(config) {
       return;
     }
 
-    window.addEventListener('load', () => { // The load event is fired when the whole page has loaded, including all dependent resources such as stylesheets and images
+    window.addEventListener('load', () => {
+      // The load event is fired when the whole page has loaded, including all dependent resources such as stylesheets and images
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`; // referencing public folder by using PUBLIC_URL environment variable
 
       if (isLocalhost) {
@@ -57,22 +58,22 @@ export function register(config) {
 function registerValidSW(swUrl, config) {
   navigator.serviceWorker // returns the ServiceWorkerContainer object
     .register(swUrl)
-    .then((registration) => { // registration = ServiceWorkerRegistration interface
-      registration.onupdatefound = () => { // onupdatefound = EventListener property called whenever an event of type updatefound is fired. Fired every time ServiceWorkerRegistration.installing propery aquires a new service worker
+    .then((registration) => {
+      // registration = ServiceWorkerRegistration interface
+      registration.onupdatefound = () => {
+        // onupdatefound = EventListener property called whenever an event of type updatefound is fired. Fired every time ServiceWorkerRegistration.installing propery aquires a new service worker
         const installingWorker = registration.installing; // returns a service worker whose state is installing. This is initially set to null
         if (installingWorker == null) {
           return;
         }
-        installingWorker.onstatechange = () => { // onstatechange = an eventListener property called whenever an event of type statechange is fired. It is basically fired anytime the SericeWorker.state changes
+        installingWorker.onstatechange = () => {
+          // onstatechange = an eventListener property called whenever an event of type statechange is fired. It is basically fired anytime the SericeWorker.state changes
           if (installingWorker.state === 'installed') {
             if (navigator.serviceWorker.controller) {
               // At this point, the updated precached content has been fetched,
               // but the previous service worker will still serve the older
               // content until all client tabs are closed.
-              console.log(
-                'New content is available and will be used when all ' +
-                  'tabs for this page are closed. See https://cra.link/PWA.'
-              );
+              console.log('New content is available and will be used when all ' + 'tabs for this page are closed. See https://cra.link/PWA.');
 
               // Execute callback
               if (config && config.onUpdate) {
@@ -108,10 +109,7 @@ function checkValidServiceWorker(swUrl, config) {
     .then((response) => {
       // Ensure service worker exists, and that we really are getting a JS file.
       const contentType = response.headers.get('content-type');
-      if (
-        response.status === 404 ||
-        (contentType != null && contentType.indexOf('javascript') === -1)
-      ) {
+      if (response.status === 404 || (contentType != null && contentType.indexOf('javascript') === -1)) {
         // No service worker found. Probably a different app. Reload the page.
         navigator.serviceWorker.ready.then((registration) => {
           registration.unregister().then(() => {

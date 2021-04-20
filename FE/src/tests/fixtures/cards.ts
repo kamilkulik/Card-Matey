@@ -9,11 +9,11 @@ export default [
     cardSpec: {
       colour: 'Aqua',
       logo: 'triangles',
-      theme: 'diagonal lines'
-    }
+      theme: 'diagonal lines',
+    },
   },
   {
-    id:'Zyl8NfmtPQBibE4RHrql',
+    id: 'Zyl8NfmtPQBibE4RHrql',
     firstName: 'Elon',
     lastName: 'Musk',
     mobile: '+1 213 312 0321',
@@ -22,8 +22,8 @@ export default [
     cardSpec: {
       colour: 'Purple',
       logo: 'triangles',
-      theme: 'diamonds'
-    }
+      theme: 'diamonds',
+    },
   },
   {
     id: 'Z6x1KVYuMrz5v8yvnBCO',
@@ -35,7 +35,7 @@ export default [
     cardSpec: {
       colour: 'Crimson',
       logo: 'triangles',
-      theme: 'cogs'
-    }
-  }
-]
+      theme: 'cogs',
+    },
+  },
+];

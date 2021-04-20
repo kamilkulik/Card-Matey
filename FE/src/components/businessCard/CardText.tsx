@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { useTypedSelector } from '../../hooks/useTypedSelector'
-import { useParams } from 'react-router-dom'
-import filterCardData from '../../utilities/filterCardProps'
-import { Card } from '../../shared'
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import filterCardData from '../../utilities/filterCardProps';
+import { Card } from '../../shared';
 
 interface CardTextProps {
-  card: Card
+  card: Card;
 }
 
 const CardText: React.FC<CardTextProps> = ({ card }) => {
@@ -15,26 +15,24 @@ const CardText: React.FC<CardTextProps> = ({ card }) => {
     mobile: '',
     email: '',
     website: '',
-  }
-  const [formFields, setFormFields] = useState(initialState)
-  const { id } = useParams<{ id: string }>()
-  const reduxData = useTypedSelector((state) => state.cards.find((savedCard) => savedCard.id === id)) as Card
+  };
+  const [formFields, setFormFields] = useState(initialState);
+  const { id } = useParams<{ id: string }>();
+  const reduxData = useTypedSelector((state) => state.cards.find((savedCard) => savedCard.id === id)) as Card;
 
-  let cardData: Card
-  if (!id) cardData = card
-  else cardData = reduxData
+  let cardData: Card;
+  if (!id) cardData = card;
+  else cardData = reduxData;
 
-  const cleadDataObject = filterCardData(cardData)
+  const cleadDataObject = filterCardData(cardData);
 
   useEffect(() => {
-    setFormFields({ ...initialState, ...cleadDataObject })
-  }, [reduxData])
+    setFormFields({ ...initialState, ...cleadDataObject });
+  }, [reduxData]);
 
   return (
     <p>
-      {formFields.firstName}
-      {' '}
-      {formFields.lastName}
+      {formFields.firstName} {formFields.lastName}
       <br />
       {formFields.mobile}
       <br />
@@ -42,7 +40,7 @@ const CardText: React.FC<CardTextProps> = ({ card }) => {
       <br />
       {formFields.website}
     </p>
-  )
-}
+  );
+};
 
-export default CardText
+export default CardText;

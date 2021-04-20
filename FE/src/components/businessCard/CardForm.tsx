@@ -20,14 +20,14 @@ const CardForm: React.FC<CardFormProps> = ({ id = null, edit, formFields, setFor
   const handleKeyPress = (event: React.KeyboardEvent<HTMLSpanElement>): void => {
     if (event.keyCode === 13) {
       event.preventDefault();
-      const dataAttribute = event.currentTarget.getAttribute("data")?.valueOf();
+      const dataAttribute = event.currentTarget.getAttribute('data')?.valueOf();
       const node: HTMLElement | null = document.querySelector(`#${dataAttribute}`);
       if (node) node.blur();
     }
   };
 
   const handleBlur = (event: React.FocusEvent<HTMLSpanElement>): void => {
-    const name = event.currentTarget.getAttribute("data")?.valueOf() as string;
+    const name = event.currentTarget.getAttribute('data')?.valueOf() as string;
     const value = event.target.innerText;
     const updates: Updates = { ...formFields, [name]: value };
     setFormFields(updates);

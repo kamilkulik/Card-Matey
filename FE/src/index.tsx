@@ -11,6 +11,8 @@ const store = configureStore();
 store.subscribe(() => {
   saveState({
     auth: store.getState().auth,
+    loading: store.getState().loading,
+    cards: store.getState().cards,
   });
 });
 

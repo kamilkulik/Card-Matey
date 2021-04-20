@@ -1,5 +1,5 @@
-import firebase, { googleAuthProvider } from '../../firebase/firebase';
 import { Dispatch } from 'redux';
+import firebase, { googleAuthProvider } from '../../firebase/firebase';
 import { AuthActionType } from '../actionTypes';
 import { RefreshTokenAction, LoginAction, LogoutAction } from '../actions';
 

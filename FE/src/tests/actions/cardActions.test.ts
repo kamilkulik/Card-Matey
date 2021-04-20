@@ -1,8 +1,8 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import * as actions from '../../state/actions/cardActions';
-import cards from '../fixtures/cards';
 import mockAxios from 'axios';
+import * as actions from '../../state/actionCreators';
+import cards from '../fixtures/cards';
 
 const createMockStore = configureMockStore([thunk]);
 
@@ -23,7 +23,7 @@ describe('Card Actions. Synchronous', () => {
   });
 
   test('should create an action to update a card', () => {
-    const id = cards[0].id;
+    const { id } = cards[0];
     const updateKeyValuesNoId = Object.entries(cards[0]).filter(([key, value]) => key !== 'id');
     const updates = Object.fromEntries(updateKeyValuesNoId);
     expect(actions.updateCard(id, updates)).toEqual({

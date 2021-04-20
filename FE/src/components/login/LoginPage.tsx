@@ -1,9 +1,10 @@
 import React from 'react';
-import { useActions } from '../../hooks/useActions'
+import { useActions } from '../../hooks/useActions';
+
 const video = require('./production_ID_4435753.mp4');
 
 const LoginPage: React.FC = () => {
-  const { startLogin } = useActions()
+  const { startLogin } = useActions();
 
   const login = () => {
     startLogin();
