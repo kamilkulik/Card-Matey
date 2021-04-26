@@ -21,8 +21,9 @@ const CardContainer: React.FC<CardContainerProps> = ({
 }) => {
   useDynamicFont(12, width);
   const cachedThemes: Theme[] = React.useContext(ThemeContext);
-  const colourLessTheme = cachedThemes.find((pattern) => pattern.name === themeProp).pattern;
-  const theme = colourLessTheme.replace('black', colourProp);
+  console.log(cachedThemes);
+  const colourLessTheme = cachedThemes.find((pattern) => pattern.name === themeProp)?.pattern;
+  const theme = colourLessTheme?.replace('black', colourProp);
 
   const style = { backgroundImage: theme };
 
@@ -41,9 +42,3 @@ const CardContainer: React.FC<CardContainerProps> = ({
 };
 
 export default sizeMe()(CardContainer);
-
-/*
-url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='LightSlateGrey' fill-opacity='0.5' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E")
-
-url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill-opacity='0.5' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E fill='LightSlateGrey'")
-*/
